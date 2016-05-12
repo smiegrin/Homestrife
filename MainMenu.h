@@ -3,14 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "Screen.h"
 
-class MainMenu {
+class MainMenu : public Screen{
 private:
     Button playButton;
     sf::Text title;
 public:
     MainMenu();
-    void open(sf::RenderWindow* window);
+    int open(sf::RenderWindow*);
 };
 
 #endif
