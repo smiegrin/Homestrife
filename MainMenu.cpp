@@ -8,7 +8,7 @@ MainMenu::MainMenu() {
     title = sf::Text();
     title.setString("HOMESTRIFE");
     title.setCharacterSize(50);
-    title.setFont(ResourceManager::ArialFont);
+    title.setFont(ResourceManager::PixelFont);
 }
 
 int MainMenu::open(sf::RenderWindow* window) {

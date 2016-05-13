@@ -9,6 +9,7 @@ public:
     static sf::Texture SkyTexture;
 
     static sf::Font ArialFont;
+    static sf::Font PixelFont;
 
     static void initialize();
 };

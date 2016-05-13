@@ -18,7 +18,7 @@ Button::Button(int xPos, int yPos, int w, int h, sf::Color color, std::string la
 
 	label = sf::Text();
 	label.setString(labelString);
-	label.setFont(ResourceManager::ArialFont);
+	label.setFont(ResourceManager::PixelFont);
 	label.setCharacterSize(h*.8);
 	label.setPosition(xPos+w/2-label.getGlobalBounds().width/2,
                       yPos+h/2-label.getGlobalBounds().height);
