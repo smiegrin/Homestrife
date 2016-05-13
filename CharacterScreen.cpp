@@ -1,4 +1,5 @@
 #include "CharacterScreen.h"
+#include "BattleScreen.h"
 
 int CharacterScreen::open(sf::RenderWindow* window) {
     readyB = Button(325,400,150,50,sf::Color(0,0,0,255),"READY");
@@ -20,11 +21,15 @@ int CharacterScreen::open(sf::RenderWindow* window) {
         while(window->pollEvent(event)) {
             if(event.type == sf::Event::Closed) window->close(), done = true;
             if(event.type == sf::Event::MouseButtonPressed) {
-                if(readyB.pointOnBox(event.mouseButton.x,event.mouseButton.y)) done = true; //open the battle screen
+                if(readyB.pointOnBox(event.mouseButton.x,event.mouseButton.y)) {
+                    done = true;
+                    //initialize players, send to battle
+                    BattleScreen().open(window);
+                }//open the battle screen
                 //other buttons for selecting a character go here.
             }
         }
-
+        if(done) return 0;
         window->clear(sf::Color::Black);
         for(std::list<DisplayObject*>::iterator it = dispList.begin(); it != dispList.end(); it++)
             (*it)->drawSelf(window);
