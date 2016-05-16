@@ -7,6 +7,10 @@ class ResourceManager {
 public:
     static sf::Texture GroundTexture;
     static sf::Texture SkyTexture;
+    static sf::Texture JohnStand;
+    static sf::Texture RoseStand;
+    static sf::Texture DaveStand;
+    static sf::Texture JadeStand;
 
     static sf::Font ArialFont;
     static sf::Font PixelFont;

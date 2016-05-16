@@ -1,13 +1,19 @@
 #include "CharacterScreen.h"
 #include "BattleScreen.h"
 #include "Selector.h"
+#include "ResourceManager.h"
 
 int CharacterScreen::open(sf::RenderWindow* window) {
     readyB = Button(325,400,150,50,sf::Color(0,0,0,255),"READY");
-    johnB = Button(5,5,100,100,sf::Color(0,0,255,255),"JOHN");
-    roseB = Button(5,395,100,100,sf::Color(128,0,128,255),"ROSE");
-    daveB = Button(695,5,100,100,sf::Color(255,0,0,255),"DAVE");
-    jadeB = Button(695,395,100,100,sf::Color(0,255,0,255),"JADE");
+    johnB = Button(200,0,200,200,sf::Color::White,"");
+    johnB.getShape()->setTexture(&ResourceManager::JohnStand);
+    roseB = Button(200,200,200,200,sf::Color::White,"");
+    roseB.getShape()->setTexture(&ResourceManager::RoseStand);
+    daveB = Button(400,0,200,200,sf::Color::White,"");
+    daveB.getShape()->setTexture(&ResourceManager::DaveStand);
+    jadeB = Button(400,200,200,200,sf::Color::White,"");
+    jadeB.getShape()->setTexture(&ResourceManager::JadeStand);
+
 
     dispList.push_back(&readyB);
     dispList.push_back(&johnB);
@@ -20,37 +26,37 @@ int CharacterScreen::open(sf::RenderWindow* window) {
     SelectorGrid<Button> daveG = SelectorGrid<Button> (&daveB);
     SelectorGrid<Button> jadeG = SelectorGrid<Button> (&jadeB);
 
-    johnG.setXPos(5);
-    johnG.setYPos(5);
-    johnG.setWidth(100);
-    johnG.setHeight(100);
+    johnG.setXPos(200);
+    johnG.setYPos(0);
+    johnG.setWidth(200);
+    johnG.setHeight(200);
     johnG.setUpward(&roseG);
     johnG.setDownward(&roseG);
     johnG.setLeftward(&daveG);
     johnG.setRightward(&daveG);
 
-    roseG.setXPos(5);
-    roseG.setYPos(395);
-    roseG.setWidth(100);
-    roseG.setHeight(100);
+    roseG.setXPos(200);
+    roseG.setYPos(200);
+    roseG.setWidth(200);
+    roseG.setHeight(200);
     roseG.setUpward(&johnG);
     roseG.setDownward(&johnG);
     roseG.setLeftward(&jadeG);
     roseG.setRightward(&jadeG);
 
-    daveG.setXPos(695);
-    daveG.setYPos(5);
-    daveG.setWidth(100);
-    daveG.setHeight(100);
+    daveG.setXPos(400);
+    daveG.setYPos(0);
+    daveG.setWidth(200);
+    daveG.setHeight(200);
     daveG.setUpward(&jadeG);
     daveG.setDownward(&jadeG);
     daveG.setLeftward(&johnG);
     daveG.setRightward(&johnG);
 
-    jadeG.setXPos(695);
-    jadeG.setYPos(395);
-    jadeG.setWidth(100);
-    jadeG.setHeight(100);
+    jadeG.setXPos(400);
+    jadeG.setYPos(200);
+    jadeG.setWidth(200);
+    jadeG.setHeight(200);
     jadeG.setUpward(&daveG);
     jadeG.setDownward(&daveG);
     jadeG.setLeftward(&roseG);
