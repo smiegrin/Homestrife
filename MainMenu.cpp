@@ -4,7 +4,7 @@
 #include "CharacterScreen.h"
 
 MainMenu::MainMenu() {
-    playButton = Button(325,400,150,50,sf::Color::Green,"PLAY");
+    playButton = Button(325,400,150,50,sf::Color(59,200,73,255),"PLAY");
     title = sf::Text();
     title.setString("HOMESTRIFE");
     title.setCharacterSize(50);
@@ -21,7 +21,7 @@ int MainMenu::open(sf::RenderWindow* window) {
             }
         }
 
-        window->clear(sf::Color::Cyan);
+        window->clear(sf::Color(0,186,255,255));
         playButton.drawSelf(window);
         window->draw(title);
         window->display();

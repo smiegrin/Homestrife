@@ -4,7 +4,7 @@
 #include "ResourceManager.h"
 
 int CharacterScreen::open(sf::RenderWindow* window) {
-    readyB = Button(325,400,150,50,sf::Color(0,0,0,255),"READY");
+    readyB = Button(325,425,150,50,sf::Color(83,83,83,255),"READY");
     johnB = Button(200,0,200,200,sf::Color::White,"");
     johnB.getShape()->setTexture(&ResourceManager::JohnStand);
     roseB = Button(200,200,200,200,sf::Color::White,"");
@@ -26,37 +26,37 @@ int CharacterScreen::open(sf::RenderWindow* window) {
     SelectorGrid<Button> daveG = SelectorGrid<Button> (&daveB);
     SelectorGrid<Button> jadeG = SelectorGrid<Button> (&jadeB);
 
-    johnG.setXPos(200);
-    johnG.setYPos(0);
-    johnG.setWidth(200);
-    johnG.setHeight(200);
+    johnG.setXPos(210);
+    johnG.setYPos(10);
+    johnG.setWidth(180);
+    johnG.setHeight(180);
     johnG.setUpward(&roseG);
     johnG.setDownward(&roseG);
     johnG.setLeftward(&daveG);
     johnG.setRightward(&daveG);
 
-    roseG.setXPos(200);
-    roseG.setYPos(200);
-    roseG.setWidth(200);
-    roseG.setHeight(200);
+    roseG.setXPos(210);
+    roseG.setYPos(210);
+    roseG.setWidth(180);
+    roseG.setHeight(180);
     roseG.setUpward(&johnG);
     roseG.setDownward(&johnG);
     roseG.setLeftward(&jadeG);
     roseG.setRightward(&jadeG);
 
-    daveG.setXPos(400);
-    daveG.setYPos(0);
-    daveG.setWidth(200);
-    daveG.setHeight(200);
+    daveG.setXPos(410);
+    daveG.setYPos(10);
+    daveG.setWidth(180);
+    daveG.setHeight(180);
     daveG.setUpward(&jadeG);
     daveG.setDownward(&jadeG);
     daveG.setLeftward(&johnG);
     daveG.setRightward(&johnG);
 
-    jadeG.setXPos(400);
-    jadeG.setYPos(200);
-    jadeG.setWidth(200);
-    jadeG.setHeight(200);
+    jadeG.setXPos(410);
+    jadeG.setYPos(210);
+    jadeG.setWidth(180);
+    jadeG.setHeight(180);
     jadeG.setUpward(&daveG);
     jadeG.setDownward(&daveG);
     jadeG.setLeftward(&roseG);
@@ -97,7 +97,7 @@ int CharacterScreen::open(sf::RenderWindow* window) {
             }
         }
         if(done) return 0;
-        window->clear(sf::Color::Black);
+        window->clear(sf::Color(238,238,238,255));
         for(std::list<DisplayObject*>::iterator it = dispList.begin(); it != dispList.end(); it++)
             (*it)->drawSelf(window);
         window->display();
