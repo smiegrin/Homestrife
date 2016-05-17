@@ -4,9 +4,12 @@
 #include "GameObject.h"
 
 class Fighter : public GameObject {
-public: enum States {READY, READY_AIR, HIGH, HIGH_AIR, LOW, LOW_AIR, DOWN, DOWN_AIR, KO, KO_AIR};
+public: enum State {READY, READY_AIR, HIGH, HIGH_AIR, LOW, LOW_AIR, DOWN, DOWN_AIR, KO, KO_AIR};
         enum Input {JUMP, GO_LEFT, GO_RIGHT, STOP_LEFT, STOP_RIGHT, ATTACK_LOW, ATTACK_HIGH};
-private:
+protected:
+    sf::Sprite look;
+    sf::Texture spriteSheet;
+    State status;
     int x;
     int y;
     int width;
@@ -20,7 +23,7 @@ private:
     int defense;
     int power;
     int attackSpeed;
-    int attackCooldown;
+    int cooldown;
     int moveSpeed;
 public:
     int getXPos();
