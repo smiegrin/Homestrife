@@ -1,5 +1,5 @@
 #include "BattleScreen.h"
-#include "FighterJohn.h"
+#include "FighterJade.h"
 
 BattleScreen::BattleScreen() {
     //get the status bar connected to the players here
@@ -10,10 +10,10 @@ int BattleScreen::open(sf::RenderWindow* window) {
     sf::Event event;
 
     //temporary test player
-    FighterJohn testP = FighterJohn(1);
-    testP.setPosition(400,100);
-    dispList.push_back(&testP);
-    objList.push_back(&testP);
+    Fighter* testP = new FighterJade(1);
+    testP->setPosition(400,100);
+    dispList.push_back(testP);
+    objList.push_back(testP);
 
     while(!done) {
         while(window->pollEvent(event)) {
@@ -27,23 +27,23 @@ int BattleScreen::open(sf::RenderWindow* window) {
                     done = true; //might become a pause menu later
                     break;
                 case sf::Keyboard::Up:
-                    testP.input(Fighter::JUMP);
+                    testP->input(Fighter::JUMP);
                     break;
                 case sf::Keyboard::Left:
-                    testP.input(Fighter::GO_LEFT);
+                    testP->input(Fighter::GO_LEFT);
                     break;
                 case sf::Keyboard::Right:
-                    testP.input(Fighter::GO_RIGHT);
+                    testP->input(Fighter::GO_RIGHT);
                     break;
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
                 switch (event.key.code) {
                 case sf::Keyboard::Left:
-                    testP.input(Fighter::STOP_LEFT);
+                    testP->input(Fighter::STOP_LEFT);
                     break;
                 case sf::Keyboard::Right:
-                    testP.input(Fighter::STOP_RIGHT);
+                    testP->input(Fighter::STOP_RIGHT);
                     break;
                 }
             }
