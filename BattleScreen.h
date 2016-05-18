@@ -3,13 +3,16 @@
 
 #include <SFML/Graphics.hpp>
 #include "Screen.h"
+#include "Fighter.h"
 
 class BattleScreen : public Screen {
-    //player objects
+private:
+    Fighter* p1;
+    Fighter* p2;
     //ground/terrain
     //health/status bar
 public:
-    BattleScreen(); //players needed here
+    BattleScreen(Fighter*); //players needed here
     virtual int open(sf::RenderWindow*);
 };
 

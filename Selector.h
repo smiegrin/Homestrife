@@ -45,7 +45,7 @@ template <class T> Selector<T>::Selector(SelectorGrid<T>* initGrid) {
     currentPattern = FASTBLINK;
 }
 
-template <class T> T* Selector<T>::getSelected() { return gridSpot.getSubject(); }
+template <class T> T* Selector<T>::getSelected() { return gridSpot->getSubject(); }
 
 template <class T> void Selector<T>::setSelected(SelectorGrid<T>* newGrid) { gridSpot = newGrid; }
 

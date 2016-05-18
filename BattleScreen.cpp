@@ -1,19 +1,18 @@
 #include "BattleScreen.h"
-#include "FighterJohn.h"
+#include "Fighter.h"
 
-BattleScreen::BattleScreen() {
+BattleScreen::BattleScreen(Fighter* p1Ptr) {
+    p1 = p1Ptr;
+    //initialize player 1
+    p1->setPosition(400,100);
+    dispList.push_back(p1);
+    objList.push_back(p1);
     //get the status bar connected to the players here
 }
 
 int BattleScreen::open(sf::RenderWindow* window) {
     bool done = false;
     sf::Event event;
-
-    //temporary test player
-    Fighter* testP = new FighterJohn(1);
-    testP->setPosition(400,100);
-    dispList.push_back(testP);
-    objList.push_back(testP);
 
     //temporary ground
     sf::RectangleShape ground = sf::RectangleShape(sf::Vector2f(800,50));
@@ -32,23 +31,23 @@ int BattleScreen::open(sf::RenderWindow* window) {
                     done = true; //might become a pause menu later
                     break;
                 case sf::Keyboard::Up:
-                    testP->input(Fighter::JUMP);
+                    p1->input(Fighter::JUMP);
                     break;
                 case sf::Keyboard::Left:
-                    testP->input(Fighter::GO_LEFT);
+                    p1->input(Fighter::GO_LEFT);
                     break;
                 case sf::Keyboard::Right:
-                    testP->input(Fighter::GO_RIGHT);
+                    p1->input(Fighter::GO_RIGHT);
                     break;
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
                 switch (event.key.code) {
                 case sf::Keyboard::Left:
-                    testP->input(Fighter::STOP_LEFT);
+                    p1->input(Fighter::STOP_LEFT);
                     break;
                 case sf::Keyboard::Right:
-                    testP->input(Fighter::STOP_RIGHT);
+                    p1->input(Fighter::STOP_RIGHT);
                     break;
                 }
             }

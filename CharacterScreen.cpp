@@ -2,6 +2,10 @@
 #include "BattleScreen.h"
 #include "Selector.h"
 #include "ResourceManager.h"
+#include "FighterDave.h"
+#include "FighterJade.h"
+#include "FighterJohn.h"
+#include "FighterRose.h"
 
 int CharacterScreen::open(sf::RenderWindow* window) {
     readyB = Button(325,425,150,50,sf::Color(83,83,83,255),"READY");
@@ -75,7 +79,12 @@ int CharacterScreen::open(sf::RenderWindow* window) {
                 if(readyB.pointOnBox(event.mouseButton.x,event.mouseButton.y)) {
                     done = true;
                     //initialize players, send to battle
-                    BattleScreen().open(window);
+                    Fighter* p1 = 0;
+                    if(p1Selector.getSelected() == &johnB) p1 = new FighterJohn(1);
+                    if(p1Selector.getSelected() == &roseB) p1 = new FighterRose(1);
+                    if(p1Selector.getSelected() == &daveB) p1 = new FighterDave(1);
+                    if(p1Selector.getSelected() == &jadeB) p1 = new FighterJade(1);
+                    BattleScreen(p1).open(window);
                 }//open the battle screen
                 //other buttons for selecting a character go here.
             }
