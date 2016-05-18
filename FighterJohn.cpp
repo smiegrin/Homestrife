@@ -18,7 +18,7 @@ FighterJohn::FighterJohn(int initDirection) {
     spriteSheet = ResourceManager::JohnStand;
     look = sf::Sprite();
     look.setTexture(spriteSheet);
-    look.setTextureRect(sf::IntRect(0,0,200,200));
+    look.setTextureRect(sf::IntRect(80,80,200,200));
     look.setOrigin(100,100);
     status = READY;
 }

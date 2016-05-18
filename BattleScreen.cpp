@@ -1,5 +1,5 @@
 #include "BattleScreen.h"
-#include "FighterJade.h"
+#include "FighterJohn.h"
 
 BattleScreen::BattleScreen() {
     //get the status bar connected to the players here
@@ -10,10 +10,15 @@ int BattleScreen::open(sf::RenderWindow* window) {
     sf::Event event;
 
     //temporary test player
-    Fighter* testP = new FighterJade(1);
+    Fighter* testP = new FighterJohn(1);
     testP->setPosition(400,100);
     dispList.push_back(testP);
     objList.push_back(testP);
+
+    //temporary ground
+    sf::RectangleShape ground = sf::RectangleShape(sf::Vector2f(800,50));
+    ground.setPosition(0,450);
+    ground.setFillColor(sf::Color(83,83,83,255));
 
     while(!done) {
         while(window->pollEvent(event)) {
@@ -52,7 +57,8 @@ int BattleScreen::open(sf::RenderWindow* window) {
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->logic();
 
-        window->clear(sf::Color::Black);
+        window->clear(sf::Color(238,238,238,255));
+        window->draw(ground);
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->drawSelf(window);
         for(std::list<DisplayObject*>::iterator it = dispList.begin(); it != dispList.end(); it++)
