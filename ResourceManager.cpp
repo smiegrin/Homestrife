@@ -7,6 +7,7 @@ sf::Texture ResourceManager::RoseStand = sf::Texture();
 sf::Texture ResourceManager::DaveStand = sf::Texture();
 sf::Texture ResourceManager::JadeStand = sf::Texture();
 sf::SoundBuffer ResourceManager::SimpleBeep = sf::SoundBuffer();
+sf::Music ResourceManager::SongTemp;
 
 void ResourceManager::initialize(){
 //fonts
@@ -19,4 +20,7 @@ void ResourceManager::initialize(){
     JadeStand.loadFromFile("Sprites/Jade_Stand.gif");
 //sounds
     SimpleBeep.loadFromFile("Sounds/SimpleBeep.wav");
+//music
+    SongTemp.openFromFile("Sounds/SongTemp.wav");
+    SongTemp.setLoop(true);
 }

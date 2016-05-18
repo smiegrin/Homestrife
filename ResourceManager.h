@@ -18,6 +18,8 @@ public:
 
     static sf::SoundBuffer SimpleBeep;
 
+    static sf::Music SongTemp;
+
     static void initialize();
 };
 
