@@ -1,5 +1,6 @@
 #include "BattleScreen.h"
 #include "Fighter.h"
+#include "ResourceManager.h"
 
 BattleScreen::BattleScreen(Fighter* p1Ptr) {
     p1 = p1Ptr;
@@ -7,6 +8,9 @@ BattleScreen::BattleScreen(Fighter* p1Ptr) {
     p1->setPosition(400,100);
     dispList.push_back(p1);
     objList.push_back(p1);
+
+    beep.setBuffer(ResourceManager::SimpleBeep);
+    beep.setLoop(false);
     //get the status bar connected to the players here
 }
 
@@ -31,6 +35,7 @@ int BattleScreen::open(sf::RenderWindow* window) {
                     done = true; //might become a pause menu later
                     break;
                 case sf::Keyboard::Up:
+                    beep.play();
                     p1->input(Fighter::JUMP);
                     break;
                 case sf::Keyboard::Left:

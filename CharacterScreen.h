@@ -1,6 +1,7 @@
 #ifndef CHARACTERSCREEN_H
 #define CHARACTERSCREEN_H
 
+#include <SFML/Audio.hpp>
 #include "Screen.h"
 #include "Button.h"
 
@@ -12,6 +13,7 @@ private:
     Button daveB;
     Button jadeB;
 
+    sf::Sound beep;
 public:
     int open(sf::RenderWindow*);
 };

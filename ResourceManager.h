@@ -2,6 +2,7 @@
 #define RESOURCEMANAGER_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class ResourceManager {
 public:
@@ -14,6 +15,8 @@ public:
 
     static sf::Font ArialFont;
     static sf::Font PixelFont;
+
+    static sf::SoundBuffer SimpleBeep;
 
     static void initialize();
 };

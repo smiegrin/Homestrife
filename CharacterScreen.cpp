@@ -8,6 +8,8 @@
 #include "FighterRose.h"
 
 int CharacterScreen::open(sf::RenderWindow* window) {
+    beep.setBuffer(ResourceManager::SimpleBeep);
+
     readyB = Button(325,425,150,50,sf::Color(83,83,83,255),"READY");
     johnB = Button(200,0,200,200,sf::Color::White,"");
     johnB.getShape()->setTexture(&ResourceManager::JohnStand);
@@ -17,7 +19,6 @@ int CharacterScreen::open(sf::RenderWindow* window) {
     daveB.getShape()->setTexture(&ResourceManager::DaveStand);
     jadeB = Button(400,200,200,200,sf::Color::White,"");
     jadeB.getShape()->setTexture(&ResourceManager::JadeStand);
-
 
     dispList.push_back(&readyB);
     dispList.push_back(&johnB);
@@ -91,15 +92,19 @@ int CharacterScreen::open(sf::RenderWindow* window) {
             if(event.type == sf::Event::KeyPressed) {
                 switch (event.key.code) {
                 case sf::Keyboard::Up:
+                    beep.play();
                     p1Selector.move(Selector<Button>::UP);
                     break;
                 case sf::Keyboard::Down:
+                    beep.play();
                     p1Selector.move(Selector<Button>::DOWN);
                     break;
                 case sf::Keyboard::Right:
+                    beep.play();
                     p1Selector.move(Selector<Button>::RIGHT);
                     break;
                 case sf::Keyboard::Left:
+                    beep.play();
                     p1Selector.move(Selector<Button>::LEFT);
                     break;
                 }
