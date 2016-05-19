@@ -44,6 +44,12 @@ int BattleScreen::open(sf::RenderWindow* window) {
                 case sf::Keyboard::Right:
                     p1->input(Fighter::GO_RIGHT);
                     break;
+                case sf::Keyboard::Slash:
+                    p1->input(Fighter::ATTACK_LOW);
+                    break;
+                case sf::Keyboard::Period:
+                    p1->input(Fighter::ATTACK_HIGH);
+                    break;
                 }
             }
             if (event.type == sf::Event::KeyReleased) {

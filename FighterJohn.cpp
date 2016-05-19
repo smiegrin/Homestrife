@@ -27,6 +27,11 @@ int FighterJohn::logic() {
     yVel += 1;
     x += xVel;
     y += yVel;
+    if (cooldown != 0) {
+        cooldown--;
+        if(cooldown == 0 && (status == LOW || status == HIGH)) status = READY;
+        if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR)) status = READY_AIR;
+    }
     if (y >= 350) {
         y = 350;
         if(status == READY_AIR) status = READY;
@@ -43,8 +48,8 @@ void FighterJohn::input(Input command) {
             status = READY_AIR;
             yVel = -20;
         }
-        if (status == READY_AIR) {
-            yVel -= 1;
+        if (status == READY_AIR && yVel >= 0) {
+            yVel = -5;
         }
         if (status == DOWN && cooldown == 0) {
             status = READY_AIR;
@@ -72,6 +77,15 @@ void FighterJohn::input(Input command) {
         xVel = 0;
         break;
     case ATTACK_LOW:
+        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(status == READY) {
+            status = LOW;
+            cooldown = attackSpeed;
+        }
+        else if (status == READY_AIR) {
+            status = LOW_AIR;
+            cooldown = attackSpeed;
+        }
         break;
     case ATTACK_HIGH:
         break;
@@ -79,6 +93,7 @@ void FighterJohn::input(Input command) {
 }
 
 void FighterJohn::drawSelf(sf::RenderWindow *window) {
+    //update frame for animation
     look.setPosition(x,y);
     look.setScale(direction,1);
     window->draw(look);
