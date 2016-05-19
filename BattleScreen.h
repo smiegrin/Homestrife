@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "Screen.h"
 #include "Fighter.h"
+#include "FlashText.h"
 
 class BattleScreen : public Screen {
 private:

@@ -1,6 +1,8 @@
 #include "BattleScreen.h"
 #include "Fighter.h"
 #include "ResourceManager.h"
+#include <string>
+#include <iostream>
 
 BattleScreen::BattleScreen(Fighter* p1Ptr) {
     p1 = p1Ptr;
