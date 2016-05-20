@@ -37,6 +37,10 @@ int FighterJohn::logic() {
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
+        if(status == KO) {
+            if(xVel > 0) xVel -= 1;
+            else if (xVel < 0) xVel += 1;
+        }
     }
     return 0;
 }
@@ -96,5 +100,20 @@ void FighterJohn::drawSelf(sf::RenderWindow *window) {
     //update frame for animation
     look.setPosition(x,y);
     look.setScale(direction,1);
+    if(status == KO || status == KO_AIR) look.setRotation(90*-direction);
     window->draw(look);
+}
+
+bool FighterJohn::hitAt(int hitX, int hitY, int hitPower = 0) {
+    if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
+        health -= hitPower - defense;
+        if (health <= 0){
+            health = 0;
+            status = KO_AIR;
+            yVel = -hitPower;
+            xVel = hitPower*direction*-1.2;
+        }
+        return true;
+    }
+    return false;
 }

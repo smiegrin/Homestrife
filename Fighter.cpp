@@ -30,14 +30,6 @@ int Fighter::getAttackSpeed() { return attackSpeed; }
 
 int Fighter::getMoveSpeed() { return moveSpeed; }
 
-bool Fighter::hitAt(int hitX, int hitY, int hitPower = 0) {
-    if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
-        health -= hitPower - defense;
-        if (health < 0) health = 0;
-        return true;
-    }
-    return false;
-}
 
 void Fighter::setPosition(int xP, int yP) {
     x = xP;
