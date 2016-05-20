@@ -25,11 +25,18 @@ int BattleScreen::open(sf::RenderWindow* window) {
     ground.setPosition(0,450);
     ground.setFillColor(sf::Color(83,83,83,255));
 
+    //temporary health bar
+    sf::RectangleShape health = sf::RectangleShape(sf::Vector2f(800,20));
+    health.setFillColor(sf::Color::Blue);
+
     while(!done) {
         while(window->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window->close();
                 return 0;
+            }
+            if (event.type == sf::Event::MouseButtonPressed) {
+                p1->hitAt(event.mouseButton.x, event.mouseButton.y, 10);
             }
             if (event.type == sf::Event::KeyPressed) {//do the gaming things
                 switch (event.key.code) {
@@ -68,9 +75,11 @@ int BattleScreen::open(sf::RenderWindow* window) {
 
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->logic();
+        health.setSize(sf::Vector2f(p1->getHealthPercent()*8,20));
 
         window->clear(sf::Color(238,238,238,255));
         window->draw(ground);
+        window->draw(health);
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->drawSelf(window);
         for(std::list<DisplayObject*>::iterator it = dispList.begin(); it != dispList.end(); it++)
