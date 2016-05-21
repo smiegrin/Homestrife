@@ -12,7 +12,7 @@ FighterJohn::FighterJohn(int initDirection) {
     maxHealth = 100;
     power = 2;
     defense = 2;
-    attackSpeed = 10;
+    attackSpeed = 40;
     cooldown = 0;
     moveSpeed = 8;
     spriteSheet = ResourceManager::JohnStand;
@@ -37,7 +37,7 @@ int FighterJohn::logic() {
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
-        if(status == KO) {
+        if(status == KO || status == HIGH || status == LOW) {
             if(xVel > 0) xVel -= 1;
             else if (xVel < 0) xVel += 1;
         }
@@ -61,12 +61,12 @@ void FighterJohn::input(Input command) {
         }
         break;
     case GO_LEFT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         direction = -1;
         xVel = direction*moveSpeed;
         break;
     case GO_RIGHT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         direction = 1;
         xVel = direction*moveSpeed;
         break;
@@ -81,7 +81,7 @@ void FighterJohn::input(Input command) {
         xVel = 0;
         break;
     case ATTACK_LOW:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         if(status == READY) {
             status = LOW;
             cooldown = attackSpeed;
