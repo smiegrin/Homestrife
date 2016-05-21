@@ -69,6 +69,12 @@ int CharacterScreen::open(sf::RenderWindow* window) {
 
     Selector<Button> p1Selector = Selector<Button>(&johnG);
     dispList.push_back(&p1Selector);
+    p1Selector.setPrimaryColor(sf::Color::Blue);
+    p1Selector.setSecondaryColor(sf::Color::Black);
+    Selector<Button> p2Selector = Selector<Button>(&roseG);
+    dispList.push_back(&p2Selector);
+    p2Selector.setPrimaryColor(sf::Color::Red);
+    p2Selector.setSecondaryColor(sf::Color::White);
 
     bool done = false;
 
@@ -81,31 +87,64 @@ int CharacterScreen::open(sf::RenderWindow* window) {
                     done = true;
                     //initialize players, send to battle
                     Fighter* p1 = 0;
-                    if(p1Selector.getSelected() == &johnB) p1 = new FighterJohn(1);
-                    if(p1Selector.getSelected() == &roseB) p1 = new FighterRose(1);
-                    if(p1Selector.getSelected() == &daveB) p1 = new FighterDave(1);
-                    if(p1Selector.getSelected() == &jadeB) p1 = new FighterJade(1);
-                    BattleScreen(p1).open(window);
+                    if(p1Selector.getSelected() == &johnB) p1 = new FighterJohn(-1);
+                    if(p1Selector.getSelected() == &roseB) p1 = new FighterRose(-1);
+                    if(p1Selector.getSelected() == &daveB) p1 = new FighterDave(-1);
+                    if(p1Selector.getSelected() == &jadeB) p1 = new FighterJade(-1);
+                    Fighter* p2 = 0;
+                    if(p2Selector.getSelected() == &johnB) p2 = new FighterJohn(1);
+                    if(p2Selector.getSelected() == &roseB) p2 = new FighterRose(1);
+                    if(p2Selector.getSelected() == &daveB) p2 = new FighterDave(1);
+                    if(p2Selector.getSelected() == &jadeB) p2 = new FighterJade(1);
+                    p1->setOpponent(p2);
+                    p2->setOpponent(p1);
+                    BattleScreen(p1,p2).open(window);
                 }//open the battle screen
                 //other buttons for selecting a character go here.
             }
             if(event.type == sf::Event::KeyPressed) {
                 switch (event.key.code) {
+                //player 1 selector controlls
                 case sf::Keyboard::Up:
                     beep.play();
                     p1Selector.move(Selector<Button>::UP);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p1Selector.move(Selector<Button>::DOWN);
                     break;
                 case sf::Keyboard::Down:
                     beep.play();
                     p1Selector.move(Selector<Button>::DOWN);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p1Selector.move(Selector<Button>::UP);
                     break;
                 case sf::Keyboard::Right:
                     beep.play();
                     p1Selector.move(Selector<Button>::RIGHT);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p1Selector.move(Selector<Button>::LEFT);
                     break;
                 case sf::Keyboard::Left:
                     beep.play();
                     p1Selector.move(Selector<Button>::LEFT);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p1Selector.move(Selector<Button>::RIGHT);
+                    break;
+                //player 2 selector controlls
+                case sf::Keyboard::W:
+                    beep.play();
+                    p2Selector.move(Selector<Button>::UP);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p2Selector.move(Selector<Button>::DOWN);
+                    break;
+                case sf::Keyboard::S:
+                    beep.play();
+                    p2Selector.move(Selector<Button>::DOWN);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p2Selector.move(Selector<Button>::UP);
+                    break;
+                case sf::Keyboard::D:
+                    beep.play();
+                    p2Selector.move(Selector<Button>::RIGHT);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p2Selector.move(Selector<Button>::LEFT);
+                    break;
+                case sf::Keyboard::A:
+                    beep.play();
+                    p2Selector.move(Selector<Button>::LEFT);
+                    if(p2Selector.getSelected()==p1Selector.getSelected()) p2Selector.move(Selector<Button>::RIGHT);
                     break;
                 }
             }

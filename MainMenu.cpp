@@ -13,7 +13,7 @@ MainMenu::MainMenu() {
 }
 
 int MainMenu::open(sf::RenderWindow* window) {
-    //ResourceManager::SongTemp.play();
+    ResourceManager::SongTemp.play();
     int anim = 0;
     while (window->isOpen()) {
         sf::Event event;

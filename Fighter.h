@@ -10,12 +10,13 @@ protected:
     sf::Sprite look;
     sf::Texture spriteSheet;
     State status;
+    Fighter* opponent;
     int x;
     int y;
     int width;
     int height;
-    int xVel;
-    int yVel;
+    int xVel = 0;
+    int yVel = 0;
     int direction;
     int anim;
     int health;
@@ -48,6 +49,7 @@ public:
     virtual bool hitAt(int,int,int) = 0;
     void setPosition(int,int);
     void setVelocity(int,int);
+    void setOpponent(Fighter*);
 
 };
 

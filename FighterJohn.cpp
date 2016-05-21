@@ -28,12 +28,14 @@ int FighterJohn::logic() {
     x += xVel;
     y += yVel;
     if (cooldown != 0) {
+        if((status == LOW || status == LOW_AIR) && cooldown == 1) opponent->hitAt(x+direction*100, y,10);
         cooldown--;
         if(cooldown == 0 && (status == LOW || status == HIGH)) status = READY;
         if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR)) status = READY_AIR;
     }
     if (y >= 350) {
         y = 350;
+        yVel = 0;
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
@@ -100,6 +102,12 @@ void FighterJohn::drawSelf(sf::RenderWindow *window) {
     //update frame for animation
     look.setPosition(x,y);
     look.setScale(direction,1);
+    if((status == LOW || status == LOW_AIR) && cooldown == 1) {
+        sf::RectangleShape temp = sf::RectangleShape(sf::Vector2f(5,5));
+        temp.setFillColor(sf::Color::Blue);
+        temp.setPosition(x+direction*100, y);
+        window->draw(temp);
+    }
     if(status == KO || status == KO_AIR) look.setRotation(90*-direction);
     window->draw(look);
 }

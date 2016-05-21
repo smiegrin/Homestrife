@@ -23,6 +23,8 @@ public:
     sf::RectangleShape getShape();
 
     void setSelected(SelectorGrid<T>*);//put onto specific grid spot
+    void setPrimaryColor(sf::Color);
+    void setSecondaryColor(sf::Color);
 
     void move(direction);
 
@@ -48,6 +50,10 @@ template <class T> Selector<T>::Selector(SelectorGrid<T>* initGrid) {
 template <class T> T* Selector<T>::getSelected() { return gridSpot->getSubject(); }
 
 template <class T> void Selector<T>::setSelected(SelectorGrid<T>* newGrid) { gridSpot = newGrid; }
+
+template <class T> void Selector<T>::setPrimaryColor(sf::Color newColor) { primaryColor = newColor; }
+
+template <class T> void Selector<T>::setSecondaryColor(sf::Color newColor) { secondaryColor = newColor; }
 
 template <class T> void Selector<T>::move(direction dir) {
     SelectorGrid<T>* oldGrid = gridSpot;

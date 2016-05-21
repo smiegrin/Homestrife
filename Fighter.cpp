@@ -40,3 +40,7 @@ void Fighter::setVelocity(int xV, int yV) {
     xVel = xV;
     yVel = yV;
 }
+
+void Fighter::setOpponent(Fighter* opp) {
+    opponent = opp;
+}

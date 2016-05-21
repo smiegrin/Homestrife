@@ -93,6 +93,7 @@ void FighterDave::drawSelf(sf::RenderWindow *window) {
 
 bool FighterDave::hitAt(int hitX, int hitY, int hitPower = 0) {
     if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
+        std::cout << "oof.\n";
         health -= hitPower - defense;
         if (health <= 0){
             health = 0;
@@ -102,5 +103,6 @@ bool FighterDave::hitAt(int hitX, int hitY, int hitPower = 0) {
         }
         return true;
     }
+    std::cout << "funny.\n";
     return false;
 }

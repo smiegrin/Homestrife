@@ -4,16 +4,20 @@
 #include <string>
 #include <iostream>
 
-BattleScreen::BattleScreen(Fighter* p1Ptr) {
+BattleScreen::BattleScreen(Fighter* p1Ptr, Fighter* p2Ptr) {
     p1 = p1Ptr;
-    //initialize player 1
-    p1->setPosition(400,100);
+    p2 = p2Ptr;
+    //initialize players position and connect to display and engine
+    p1->setPosition(600,100);
     dispList.push_back(p1);
     objList.push_back(p1);
+    p2->setPosition(200,100);
+    dispList.push_back(p2);
+    objList.push_back(p2);
+    //get the status bar connected to the players here
 
     beep.setBuffer(ResourceManager::SimpleBeep);
     beep.setLoop(false);
-    //get the status bar connected to the players here
 }
 
 int BattleScreen::open(sf::RenderWindow* window) {
@@ -25,9 +29,13 @@ int BattleScreen::open(sf::RenderWindow* window) {
     ground.setPosition(0,450);
     ground.setFillColor(sf::Color(83,83,83,255));
 
-    //temporary health bar
-    sf::RectangleShape health = sf::RectangleShape(sf::Vector2f(800,20));
-    health.setFillColor(sf::Color::Blue);
+    //temporary health bars
+    sf::RectangleShape p1Health = sf::RectangleShape(sf::Vector2f(400,20));
+    p1Health.setFillColor(sf::Color::Blue);
+    p1Health.setPosition(400,0);
+    sf::RectangleShape p2Health = sf::RectangleShape(sf::Vector2f(4000,20));
+    p2Health.setFillColor(sf::Color::Red);
+    p2Health.setPosition(0,0);
 
     while(!done) {
         while(window->pollEvent(event)) {
@@ -37,12 +45,14 @@ int BattleScreen::open(sf::RenderWindow* window) {
             }
             if (event.type == sf::Event::MouseButtonPressed) {
                 p1->hitAt(event.mouseButton.x, event.mouseButton.y, 10);
+                p2->hitAt(event.mouseButton.x, event.mouseButton.y, 10);
             }
             if (event.type == sf::Event::KeyPressed) {//do the gaming things
                 switch (event.key.code) {
                 case sf::Keyboard::Escape:
                     done = true; //might become a pause menu later
                     break;
+                //player 1 controlls
                 case sf::Keyboard::Up:
                     beep.play();
                     p1->input(Fighter::JUMP);
@@ -59,6 +69,23 @@ int BattleScreen::open(sf::RenderWindow* window) {
                 case sf::Keyboard::Period:
                     p1->input(Fighter::ATTACK_HIGH);
                     break;
+                //player 2 controlls
+                case sf::Keyboard::W:
+                    beep.play();
+                    p2->input(Fighter::JUMP);
+                    break;
+                case sf::Keyboard::A:
+                    p2->input(Fighter::GO_LEFT);
+                    break;
+                case sf::Keyboard::D:
+                    p2->input(Fighter::GO_RIGHT);
+                    break;
+                case sf::Keyboard::LShift:
+                    p2->input(Fighter::ATTACK_LOW);
+                    break;
+                case sf::Keyboard::Z:
+                    p2->input(Fighter::ATTACK_HIGH);
+                    break;
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
@@ -69,17 +96,27 @@ int BattleScreen::open(sf::RenderWindow* window) {
                 case sf::Keyboard::Right:
                     p1->input(Fighter::STOP_RIGHT);
                     break;
+                case sf::Keyboard::A:
+                    p2->input(Fighter::STOP_LEFT);
+                    break;
+                case sf::Keyboard::D:
+                    p2->input(Fighter::STOP_RIGHT);
+                    break;
                 }
             }
         }
 
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->logic();
-        health.setSize(sf::Vector2f(p1->getHealthPercent()*8,20));
+        p1Health.setSize(sf::Vector2f(p1->getHealthPercent()*4,20));
+        p1Health.setPosition(800-p1->getHealthPercent()*4,0);
+        p2Health.setSize(sf::Vector2f(p2->getHealthPercent()*4,20));
+        p2Health.setPosition(0,0);
 
         window->clear(sf::Color(238,238,238,255));
         window->draw(ground);
-        window->draw(health);
+        window->draw(p1Health);
+        window->draw(p2Health);
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->drawSelf(window);
         for(std::list<DisplayObject*>::iterator it = dispList.begin(); it != dispList.end(); it++)

@@ -15,7 +15,7 @@ private:
     //health/status bar
     sf::Sound beep;
 public:
-    BattleScreen(Fighter*); //players needed here
+    BattleScreen(Fighter*,Fighter*);
     virtual int open(sf::RenderWindow*);
 };
 
