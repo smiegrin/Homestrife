@@ -12,7 +12,7 @@ FighterJohn::FighterJohn(int initDirection) {
     maxHealth = 100;
     power = 2;
     defense = 2;
-    attackSpeed = 40;
+    attackSpeed = 20;
     cooldown = 0;
     moveSpeed = 8;
     spriteSheet = ResourceManager::JohnStand;
@@ -21,6 +21,12 @@ FighterJohn::FighterJohn(int initDirection) {
     look.setTextureRect(sf::IntRect(80,80,200,200));
     look.setOrigin(100,100);
     status = READY;
+
+    //initialize sounds
+    whoosh.setBuffer(ResourceManager::HeavyWhoosh);
+    whoosh.setLoop(false);
+    thud.setBuffer(ResourceManager::Thud);
+    thud.setLoop(false);
 }
 
 int FighterJohn::logic() {
@@ -28,7 +34,10 @@ int FighterJohn::logic() {
     x += xVel;
     y += yVel;
     if (cooldown != 0) {
-        if((status == LOW || status == LOW_AIR) && cooldown == 1) opponent->hitAt(x+direction*100, y,10);
+        if((status == LOW || status == LOW_AIR) && cooldown == 1)  {
+            opponent->hitAt(x+direction*100, y,10);
+            thud.play();
+        }
         cooldown--;
         if(cooldown == 0 && (status == LOW || status == HIGH)) status = READY;
         if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR)) status = READY_AIR;
@@ -86,10 +95,12 @@ void FighterJohn::input(Input command) {
         if(cooldown != 0 || health == 0) break;
         if(status == READY) {
             status = LOW;
+            whoosh.play();
             cooldown = attackSpeed;
         }
         else if (status == READY_AIR) {
             status = LOW_AIR;
+            whoosh.play();
             cooldown = attackSpeed;
         }
         break;
@@ -102,12 +113,6 @@ void FighterJohn::drawSelf(sf::RenderWindow *window) {
     //update frame for animation
     look.setPosition(x,y);
     look.setScale(direction,1);
-    if((status == LOW || status == LOW_AIR) && cooldown == 1) {
-        sf::RectangleShape temp = sf::RectangleShape(sf::Vector2f(5,5));
-        temp.setFillColor(sf::Color::Blue);
-        temp.setPosition(x+direction*100, y);
-        window->draw(temp);
-    }
     if(status == KO || status == KO_AIR) look.setRotation(90*-direction);
     window->draw(look);
 }

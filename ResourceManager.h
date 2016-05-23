@@ -17,6 +17,9 @@ public:
     static sf::Font PixelFont;
 
     static sf::SoundBuffer SimpleBeep;
+    static sf::SoundBuffer LightWhoosh;
+    static sf::SoundBuffer HeavyWhoosh;
+    static sf::SoundBuffer Thud;
 
     static sf::Music SongTemp;
 

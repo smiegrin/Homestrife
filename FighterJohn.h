@@ -3,7 +3,12 @@
 
 #include "Fighter.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 class FighterJohn : public Fighter {
+private:
+    sf::Sound whoosh;
+    sf::Sound thud;
 public:
     FighterJohn(int);
     virtual int logic();
