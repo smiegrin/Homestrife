@@ -15,12 +15,20 @@ FighterDave::FighterDave(int initDirection) {
     attackSpeed = 10;
     cooldown = 0;
     moveSpeed = 8;
-    spriteSheet = ResourceManager::DaveStand;
-    look = sf::Sprite();
-    look.setTexture(spriteSheet);
-    look.setTextureRect(sf::IntRect(150,150,200,200));
-    look.setOrigin(100,100);
     status = READY;
+
+    standingSprite = sf::Sprite();
+    standingSprite.setTexture(ResourceManager::DaveStand);
+    standingSprite.setOrigin(260,220);
+
+    jumpingSprite = sf::Sprite();
+    jumpingSprite.setTexture(ResourceManager::DaveRun);
+    jumpingSprite.setTextureRect(sf::IntRect(60,60,210,240));
+    jumpingSprite.setOrigin(100,100);
+
+    runningSprite = AnimatedSprite();
+    runningSprite.setAnimation(ResourceManager::DaveRunAnim);
+    runningSprite.setOrigin(100,100);
 }
 
 int FighterDave::logic() {
@@ -85,15 +93,31 @@ void FighterDave::input(Input command) {
 }
 
 void FighterDave::drawSelf(sf::RenderWindow *window) {
-    look.setPosition(x,y);
-    look.setScale(direction,1);
-    if(status == KO || status == KO_AIR) look.setRotation(90*-direction);
-    window->draw(look);
+    if(status == READY && xVel != 0) {
+        runningSprite.update(sf::seconds(0.015f));
+        runningSprite.setScale(direction,1);
+        runningSprite.setPosition(x,y);
+        window->draw(runningSprite);
+    }
+    else if(status == READY && xVel == 0) {
+        standingSprite.setScale(direction,1);
+        standingSprite.setPosition(x,y);
+        window->draw(standingSprite);
+    }
+    if(status == READY_AIR) {
+        jumpingSprite.setScale(direction,1);
+        jumpingSprite.setPosition(x,y);
+        window->draw(jumpingSprite);
+    }
+    if(status == KO || status == KO_AIR) {
+        standingSprite.setRotation(90*-direction);
+        standingSprite.setPosition(x,y);
+        window->draw(standingSprite);
+    }
 }
 
 bool FighterDave::hitAt(int hitX, int hitY, int hitPower = 0) {
     if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
-        std::cout << "oof.\n";
         health -= hitPower - defense;
         if (health <= 0){
             health = 0;
@@ -103,6 +127,5 @@ bool FighterDave::hitAt(int hitX, int hitY, int hitPower = 0) {
         }
         return true;
     }
-    std::cout << "funny.\n";
     return false;
 }

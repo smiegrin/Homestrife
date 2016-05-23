@@ -15,11 +15,10 @@ FighterJohn::FighterJohn(int initDirection) {
     attackSpeed = 20;
     cooldown = 0;
     moveSpeed = 8;
-    spriteSheet = ResourceManager::JohnStand;
-    look = sf::Sprite();
-    look.setTexture(spriteSheet);
-    look.setTextureRect(sf::IntRect(80,80,200,200));
-    look.setOrigin(100,100);
+    standingSprite = sf::Sprite();
+    standingSprite.setTexture(ResourceManager::JohnStand);
+    standingSprite.setTextureRect(sf::IntRect(80,80,200,200));
+    standingSprite.setOrigin(100,100);
     status = READY;
 
     //initialize sounds
@@ -111,10 +110,10 @@ void FighterJohn::input(Input command) {
 
 void FighterJohn::drawSelf(sf::RenderWindow *window) {
     //update frame for animation
-    look.setPosition(x,y);
-    look.setScale(direction,1);
-    if(status == KO || status == KO_AIR) look.setRotation(90*-direction);
-    window->draw(look);
+    standingSprite.setPosition(x,y);
+    standingSprite.setScale(direction,1);
+    if(status == KO || status == KO_AIR) standingSprite.setRotation(90*-direction);
+    window->draw(standingSprite);
 }
 
 bool FighterJohn::hitAt(int hitX, int hitY, int hitPower = 0) {

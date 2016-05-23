@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "Animation.hpp"
 
 class ResourceManager {
 public:
@@ -11,7 +12,10 @@ public:
     static sf::Texture JohnStand;
     static sf::Texture RoseStand;
     static sf::Texture DaveStand;
+    static sf::Texture DaveRun;
     static sf::Texture JadeStand;
+
+    static Animation DaveRunAnim;
 
     static sf::Font ArialFont;
     static sf::Font PixelFont;

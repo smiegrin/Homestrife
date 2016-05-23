@@ -2,8 +2,13 @@
 #define FIGHTER_DAVE_H
 
 #include "Fighter.h"
+#include "AnimatedSprite.hpp"
 
 class FighterDave : public Fighter {
+private:
+    AnimatedSprite runningSprite;
+    sf::Sprite standingSprite;
+    sf::Sprite jumpingSprite;
 public:
     FighterDave(int);
     virtual int logic();

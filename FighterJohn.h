@@ -9,6 +9,7 @@ class FighterJohn : public Fighter {
 private:
     sf::Sound whoosh;
     sf::Sound thud;
+    sf::Sprite standingSprite;
 public:
     FighterJohn(int);
     virtual int logic();
