@@ -50,6 +50,7 @@ int FighterDave::logic() {
     }
     if (y >= 350) {
         y = 350;
+        yVel = 0;
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;

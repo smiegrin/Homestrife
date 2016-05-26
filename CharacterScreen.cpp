@@ -146,6 +146,24 @@ int CharacterScreen::open(sf::RenderWindow* window) {
                     p2Selector.move(Selector<Button>::LEFT);
                     if(p2Selector.getSelected()==p1Selector.getSelected()) p2Selector.move(Selector<Button>::RIGHT);
                     break;
+                //start game with enter
+                case sf::Keyboard::Return:
+                    done = true;
+                    //initialize players, send to battle
+                    Fighter* p1 = 0;
+                    if(p1Selector.getSelected() == &johnB) p1 = new FighterJohn(-1);
+                    if(p1Selector.getSelected() == &roseB) p1 = new FighterRose(-1);
+                    if(p1Selector.getSelected() == &daveB) p1 = new FighterDave(-1);
+                    if(p1Selector.getSelected() == &jadeB) p1 = new FighterJade(-1);
+                    Fighter* p2 = 0;
+                    if(p2Selector.getSelected() == &johnB) p2 = new FighterJohn(1);
+                    if(p2Selector.getSelected() == &roseB) p2 = new FighterRose(1);
+                    if(p2Selector.getSelected() == &daveB) p2 = new FighterDave(1);
+                    if(p2Selector.getSelected() == &jadeB) p2 = new FighterJade(1);
+                    p1->setOpponent(p2);
+                    p2->setOpponent(p1);
+                    BattleScreen(p1,p2).open(window);
+                    break;
                 }
             }
         }
