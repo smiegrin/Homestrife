@@ -2,8 +2,11 @@
 #define FIGHTER_JADE_H
 
 #include "Fighter.h"
+#include <SFML/Audio.hpp>
 
 class FighterJade : public Fighter {
+private:
+    sf::Sound gunSound;
 public:
     FighterJade(int);
     virtual int logic();
