@@ -12,7 +12,7 @@ FighterDave::FighterDave(int initDirection) {
     maxHealth = 100;
     power = 2;
     defense = 2;
-    attackSpeed = 10;
+    attackSpeed = 5;
     cooldown = 0;
     moveSpeed = 8;
     status = READY;
@@ -29,6 +29,10 @@ FighterDave::FighterDave(int initDirection) {
     runningSprite = AnimatedSprite();
     runningSprite.setAnimation(ResourceManager::DaveRunAnim);
     runningSprite.setOrigin(100,100);
+
+    //initialize sounds
+    whoosh.setBuffer(ResourceManager::LightWhoosh);
+    whoosh.setLoop(false);
 }
 
 int FighterDave::logic() {
@@ -37,6 +41,10 @@ int FighterDave::logic() {
     y += yVel;
     if (cooldown != 0) {
         cooldown--;
+        if(cooldown == 1 && (status == LOW)) {
+            whoosh.play();
+            opponent->hitAt(x+direction*100,y,5);
+        }
         if(cooldown == 0 && (status == LOW || status == HIGH)) status = READY;
         if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR)) status = READY_AIR;
     }
@@ -45,6 +53,8 @@ int FighterDave::logic() {
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
+        if(status == LOW_AIR) status = LOW;
+        if(status == LOW && xVel != 0) xVel -= direction;
         if(status == KO) {
             if(xVel > 0) xVel -= 1;
             else if (xVel < 0) xVel += 1;
@@ -86,6 +96,12 @@ void FighterDave::input(Input command) {
         xVel = 0;
         break;
     case ATTACK_LOW:
+        if(cooldown != 0) break;
+        if(status == READY) {
+            status = LOW;
+            cooldown = attackSpeed;
+            xVel += direction*4;
+        }
         break;
     case ATTACK_HIGH:
         break;
@@ -93,13 +109,13 @@ void FighterDave::input(Input command) {
 }
 
 void FighterDave::drawSelf(sf::RenderWindow *window) {
-    if(status == READY && xVel != 0) {
+    if((status == READY || status == LOW) && xVel != 0) {
         runningSprite.update(sf::seconds(0.015f));
         runningSprite.setScale(direction,1);
         runningSprite.setPosition(x,y);
         window->draw(runningSprite);
     }
-    else if(status == READY && xVel == 0) {
+    else if((status == READY || status == LOW) && xVel == 0) {
         standingSprite.setScale(direction,1);
         standingSprite.setPosition(x,y);
         window->draw(standingSprite);

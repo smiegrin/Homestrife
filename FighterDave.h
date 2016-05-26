@@ -3,12 +3,14 @@
 
 #include "Fighter.h"
 #include "AnimatedSprite.hpp"
+#include <SFML/Audio.hpp>
 
 class FighterDave : public Fighter {
 private:
     AnimatedSprite runningSprite;
     sf::Sprite standingSprite;
     sf::Sprite jumpingSprite;
+    sf::Sound whoosh;
 public:
     FighterDave(int);
     virtual int logic();
