@@ -17,8 +17,8 @@ FighterJohn::FighterJohn(int initDirection) {
     moveSpeed = 8;
     standingSprite = sf::Sprite();
     standingSprite.setTexture(ResourceManager::JohnStand);
-    standingSprite.setTextureRect(sf::IntRect(80,80,200,200));
-    standingSprite.setOrigin(100,100);
+    standingSprite.setTextureRect(sf::IntRect(15,70,265,230));
+    standingSprite.setOrigin(180,100);
     status = READY;
 
     //initialize sounds

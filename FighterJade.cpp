@@ -18,7 +18,7 @@ FighterJade::FighterJade(int initDirection) {
     spriteSheet = ResourceManager::JadeStand;
     look = sf::Sprite();
     look.setTexture(spriteSheet);
-    look.setTextureRect(sf::IntRect(150,150,200,200));
+    look.setTextureRect(sf::IntRect(160,80,245,245));
     look.setOrigin(100,100);
     status = READY;
 }
