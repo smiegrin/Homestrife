@@ -19,7 +19,7 @@ FighterJade::FighterJade(int initDirection) {
     look = sf::Sprite();
     look.setTexture(spriteSheet);
     look.setTextureRect(sf::IntRect(160,80,245,245));
-    look.setOrigin(100,100);
+    look.setOrigin(100,80);
     status = READY;
 }
 

@@ -21,6 +21,10 @@ FighterRose::FighterRose(int initDirection) {
     look.setTextureRect(sf::IntRect(100,70,180,220));
     look.setOrigin(100,100);
     status = READY;
+
+    //initialize sounds
+    wandSound.setBuffer(ResourceManager::LightWhoosh);
+    wandSound.setLoop(false);
 }
 
 int FighterRose::logic() {
@@ -29,11 +33,24 @@ int FighterRose::logic() {
     y += yVel;
     if (cooldown != 0) {
         cooldown--;
+        if(cooldown == 3 && (status == LOW || status == LOW_AIR)) {
+            wandSound.play();
+            opponent->hitAt(x+direction*75,y,3);
+        }
+        if(cooldown == 6 && (status == LOW || status == LOW_AIR)) {
+            wandSound.play();
+            opponent->hitAt(x+direction*75,y+10,3);
+        }
+        if(cooldown == 9 && (status == LOW || status == LOW_AIR)) {
+            wandSound.play();
+            opponent->hitAt(x+direction*75,y-10,3);
+        }
         if(cooldown == 0 && (status == LOW || status == HIGH)) status = READY;
         if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR)) status = READY_AIR;
     }
     if (y >= 350) {
         y = 350;
+        yVel = 0;
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
@@ -78,6 +95,11 @@ void FighterRose::input(Input command) {
         xVel = 0;
         break;
     case ATTACK_LOW:
+        if(cooldown <= 5 && (status == LOW || status == LOW_AIR)) cooldown+=5;
+        if(status == READY) {
+            status = LOW;
+            cooldown = attackSpeed;
+        }
         break;
     case ATTACK_HIGH:
         break;

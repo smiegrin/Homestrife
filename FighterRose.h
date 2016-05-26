@@ -2,8 +2,11 @@
 #define FIGHTER_ROSE_H
 
 #include "Fighter.h"
+#include <SFML/Audio.hpp>
 
 class FighterRose : public Fighter {
+private:
+    sf::Sound wandSound;
 public:
     FighterRose(int);
     virtual int logic();
