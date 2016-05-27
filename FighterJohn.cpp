@@ -81,12 +81,12 @@ void FighterJohn::input(Input command) {
         xVel = direction*moveSpeed;
         break;
     case STOP_LEFT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         if(xVel > 0) break;
         xVel = 0;
         break;
     case STOP_RIGHT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         if(xVel < 0) break;
         xVel = 0;
         break;

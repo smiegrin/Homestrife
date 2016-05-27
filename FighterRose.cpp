@@ -75,22 +75,22 @@ void FighterRose::input(Input command) {
         }
         break;
     case GO_LEFT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         direction = -1;
         xVel = direction*moveSpeed;
         break;
     case GO_RIGHT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         direction = 1;
         xVel = direction*moveSpeed;
         break;
     case STOP_LEFT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         if(xVel > 0) break;
         xVel = 0;
         break;
     case STOP_RIGHT:
-        if(status == (KO | DOWN | KO_AIR | DOWN_AIR)) break;
+        if(cooldown != 0 || health == 0) break;
         if(xVel < 0) break;
         xVel = 0;
         break;
