@@ -23,6 +23,7 @@ BattleScreen::BattleScreen(Fighter* p1Ptr, Fighter* p2Ptr) {
 int BattleScreen::open(sf::RenderWindow* window) {
     bool done = false;
     sf::Event event;
+    int anim = 0;
 
     //temporary ground
     sf::RectangleShape ground = sf::RectangleShape(sf::Vector2f(800,50));
@@ -108,6 +109,23 @@ int BattleScreen::open(sf::RenderWindow* window) {
 
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->logic();
+
+        if(p1->getHealthNum() == 0 || p2->getHealthNum() == 0) {//check if someone has won
+            if (anim == 0) {
+                //some kind of victory song should play
+                FlashText* winText;
+                if(p2->getHealthNum() == 0) winText = new FlashText("PLAYER 1 WINS", sf::Color::Blue,sf::Color::Black);
+                else winText = new FlashText("PLAYER 2 WINS", sf::Color::Red, sf::Color::White);
+                winText->setSize(50);
+                winText->setOffset(5);
+                winText->setFont(&ResourceManager::PixelFont);
+                winText->setPosition(400-winText->getWidth()/2, 20);
+                dispList.push_front(winText);
+            }
+            anim++;
+            if (anim == 180) done = true;
+        }
+
         p1Health.setSize(sf::Vector2f(p1->getHealthPercent()*4,20));
         p1Health.setPosition(800-p1->getHealthPercent()*4,0);
         p2Health.setSize(sf::Vector2f(p2->getHealthPercent()*4,20));
@@ -123,6 +141,8 @@ int BattleScreen::open(sf::RenderWindow* window) {
             (*it)->drawSelf(window);
         window->display();
     }
+
+    //possibly some kind of after-battle screen should be called here.
 
     return 0; //later, return the winner
 }

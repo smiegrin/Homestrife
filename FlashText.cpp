@@ -25,6 +25,10 @@ int FlashText::getX() { return x; }
 
 int FlashText::getY() { return y; }
 
+int FlashText::getWidth() { return pText.getLocalBounds().width + offset; }
+
+int FlashText::getHeight() { return pText.getLocalBounds().height + offset; }
+
 int FlashText::getOffset() { return offset; }
 
 int FlashText::getFlashSpeed() { return flashSpeed; }

@@ -20,6 +20,8 @@ public:
     FlashText(std::string, sf::Color, sf::Color);
     int getX();
     int getY();
+    int getWidth();
+    int getHeight();
     int getOffset();
     int getFlashSpeed();
     sf::Color getPrimaryColor();
