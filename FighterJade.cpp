@@ -38,8 +38,8 @@ int FighterJade::logic() {
             int temp = 0;
             while(x+temp <= 800 && x+temp >= 0 && !opponent->hitAt(x+temp,y,4)) temp += 100*direction;
         }
-        if(cooldown == 0 && (status == LOW || status == HIGH)) status = READY;
-        if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR)) status = READY_AIR;
+        if(cooldown == 0 && (status == LOW || status == HIGH || status == DOWN)) status = READY, xVel = 0;
+        if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR || status == DOWN_AIR)) status = READY_AIR;
     }
     if (y >= 350) {
         y = 350;
@@ -47,7 +47,7 @@ int FighterJade::logic() {
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
-        if(status == KO) {
+        if(status == KO || status == DOWN) {
             if(xVel > 0) xVel -= 1;
             else if (xVel < 0) xVel += 1;
         }
@@ -107,17 +107,26 @@ void FighterJade::drawSelf(sf::RenderWindow *window) {
     look.setPosition(x,y);
     look.setScale(direction,1);
     if(status == KO || status == KO_AIR) look.setRotation(90*-direction);
+    else if(status == DOWN || status == DOWN_AIR) look.setRotation(30*-direction);
+    else look.setRotation(0);
     window->draw(look);
 }
 
 bool FighterJade::hitAt(int hitX, int hitY, int hitPower = 0) {
     if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
+        if (hitPower == 0) return true;
         health -= hitPower - defense;
         if (health <= 0){
             health = 0;
             status = KO_AIR;
             yVel = -hitPower;
             xVel = hitPower*direction*-1.2;
+        }
+        else {
+            cooldown = hitPower;
+            xVel = hitPower*-direction;
+            if(status == READY || status == LOW || status == HIGH) status = DOWN;
+            else if(status == READY_AIR || status == LOW_AIR || status == HIGH_AIR) status = DOWN_AIR;
         }
         return true;
     }
