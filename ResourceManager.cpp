@@ -19,11 +19,11 @@ void ResourceManager::initialize(){
     ArialFont.loadFromFile("arial.ttf");
     PixelFont.loadFromFile("TYPOSTUCK.ttf");
 //sprites
-    JohnStand.loadFromFile("Sprites/John_Stand.gif");
-    RoseStand.loadFromFile("Sprites/Rose_Stand.gif");
-    DaveStand.loadFromFile("Sprites/Dave_Stand.gif");
+    JohnStand.loadFromFile("Sprites/John_Stand.png");
+    RoseStand.loadFromFile("Sprites/Rose_Stand.png");
+    DaveStand.loadFromFile("Sprites/Dave_Stand.png");
     DaveRun.loadFromFile("Sprites/Dave_Run.png");
-    JadeStand.loadFromFile("Sprites/Jade_Stand.gif");
+    JadeStand.loadFromFile("Sprites/Jade_Stand.png");
 //animations
     DaveRunAnim.setSpriteSheet(DaveRun);
     DaveRunAnim.addFrame(sf::IntRect(60,60,210,240));
