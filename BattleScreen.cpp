@@ -22,8 +22,16 @@ BattleScreen::BattleScreen(Fighter* p1Ptr, Fighter* p2Ptr) {
 
 int BattleScreen::open(sf::RenderWindow* window) {
     bool done = false;
+    bool paused = true;
     sf::Event event;
-    int anim = 0;
+    int anim = -240;
+
+    //countdown, TODO: move to constructor
+    FlashText countdown = FlashText("3",sf::Color::Red, sf::Color::Blue);
+    countdown.setFont(&ResourceManager::PixelFont);
+    countdown.setSize(30);
+    countdown.setPosition(400-countdown.getWidth()/2, 30);
+    dispList.push_front(&countdown);
 
     //temporary ground
     sf::RectangleShape ground = sf::RectangleShape(sf::Vector2f(800,50));
@@ -48,7 +56,7 @@ int BattleScreen::open(sf::RenderWindow* window) {
                 p1->hitAt(event.mouseButton.x, event.mouseButton.y, 10);
                 p2->hitAt(event.mouseButton.x, event.mouseButton.y, 10);
             }
-            if (event.type == sf::Event::KeyPressed) {//do the gaming things
+            if (!paused && event.type == sf::Event::KeyPressed) {//do the gaming things
                 switch (event.key.code) {
                 case sf::Keyboard::Escape:
                     done = true; //might become a pause menu later
@@ -89,7 +97,7 @@ int BattleScreen::open(sf::RenderWindow* window) {
                     break;
                 }
             }
-            if (event.type == sf::Event::KeyReleased) {
+            if (!paused && event.type == sf::Event::KeyReleased) {
                 switch (event.key.code) {
                 case sf::Keyboard::Left:
                     p1->input(Fighter::STOP_LEFT);
@@ -109,6 +117,30 @@ int BattleScreen::open(sf::RenderWindow* window) {
 
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->logic();
+
+        if(anim < 0) {
+            anim++;
+            if (anim == -180) {
+                countdown.setString("2");
+                countdown.setPosition(400-countdown.getWidth()/2, 30);
+                beep.play();
+            }
+            if (anim == -120) {
+                countdown.setString("1");
+                countdown.setPosition(400-countdown.getWidth()/2, 30);
+                beep.play();
+            }
+            if (anim == -60) {
+                countdown.setString("STRIFE!");
+                countdown.setSize(90);
+                countdown.setPosition(400-countdown.getWidth()/2, 30);
+                beep.play();
+                paused = false;
+            }
+            if (anim >= -30) {
+                countdown.setPosition(400-countdown.getWidth()/2, 30-(anim+30)*(anim+30));
+            }
+        }
 
         if(p1->getHealthNum() == 0 || p2->getHealthNum() == 0) {//check if someone has won
             if (anim == 0) {
