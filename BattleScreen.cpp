@@ -14,7 +14,11 @@ BattleScreen::BattleScreen(Fighter* p1Ptr, Fighter* p2Ptr) {
     p2->setPosition(200,100);
     dispList.push_back(p2);
     objList.push_back(p2);
-    //get the status bar connected to the players here
+
+    //status bar
+    healthBar = HealthBar(p1,p2);
+    dispList.push_back(&healthBar);
+    objList.push_back(&healthBar);
 
     beep.setBuffer(ResourceManager::SimpleBeep);
     beep.setLoop(false);
@@ -37,14 +41,6 @@ int BattleScreen::open(sf::RenderWindow* window) {
     sf::RectangleShape ground = sf::RectangleShape(sf::Vector2f(800,50));
     ground.setPosition(0,450);
     ground.setFillColor(sf::Color(83,83,83,255));
-
-    //temporary health bars
-    sf::RectangleShape p1Health = sf::RectangleShape(sf::Vector2f(400,20));
-    p1Health.setFillColor(sf::Color::Blue);
-    p1Health.setPosition(400,0);
-    sf::RectangleShape p2Health = sf::RectangleShape(sf::Vector2f(4000,20));
-    p2Health.setFillColor(sf::Color::Red);
-    p2Health.setPosition(0,0);
 
     while(!done) {
         while(window->pollEvent(event)) {
@@ -158,15 +154,8 @@ int BattleScreen::open(sf::RenderWindow* window) {
             if (anim == 180) done = true;
         }
 
-        p1Health.setSize(sf::Vector2f(p1->getHealthPercent()*4,20));
-        p1Health.setPosition(800-p1->getHealthPercent()*4,0);
-        p2Health.setSize(sf::Vector2f(p2->getHealthPercent()*4,20));
-        p2Health.setPosition(0,0);
-
         window->clear(sf::Color(238,238,238,255));
         window->draw(ground);
-        window->draw(p1Health);
-        window->draw(p2Health);
         for(std::list<GameObject*>::iterator it = objList.begin(); it != objList.end(); it++)
             (*it)->drawSelf(window);
         for(std::list<DisplayObject*>::iterator it = dispList.begin(); it != dispList.end(); it++)

@@ -6,13 +6,14 @@
 #include "Screen.h"
 #include "Fighter.h"
 #include "FlashText.h"
+#include "HealthBar.h"
 
 class BattleScreen : public Screen {
 private:
     Fighter* p1;
     Fighter* p2;
     //ground/terrain
-    //health/status bar
+    HealthBar healthBar;
     sf::Sound beep;
 public:
     BattleScreen(Fighter*,Fighter*);
