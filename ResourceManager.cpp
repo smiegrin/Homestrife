@@ -7,6 +7,8 @@ sf::Texture ResourceManager::RoseStand = sf::Texture();
 sf::Texture ResourceManager::DaveStand = sf::Texture();
 sf::Texture ResourceManager::DaveRun = sf::Texture();
 sf::Texture ResourceManager::JadeStand = sf::Texture();
+sf::Texture ResourceManager::HealthOverlay = sf::Texture();
+sf::Texture ResourceManager::HealthUnderlay = sf::Texture();
 Animation ResourceManager::DaveRunAnim = Animation();
 sf::SoundBuffer ResourceManager::SimpleBeep = sf::SoundBuffer();
 sf::SoundBuffer ResourceManager::LightWhoosh = sf::SoundBuffer();
@@ -24,6 +26,8 @@ void ResourceManager::initialize(){
     DaveStand.loadFromFile("Sprites/Dave_Stand.png");
     DaveRun.loadFromFile("Sprites/Dave_Run.png");
     JadeStand.loadFromFile("Sprites/Jade_Stand.png");
+    HealthOverlay.loadFromFile("Sprites/Health_Overlay.png");
+    HealthUnderlay.loadFromFile("Sprites/Health_Underlay.png");
 //animations
     DaveRunAnim.setSpriteSheet(DaveRun);
     DaveRunAnim.addFrame(sf::IntRect(60,60,210,240));

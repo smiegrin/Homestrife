@@ -10,7 +10,7 @@ private:
     Fighter* p1;
     Fighter* p2;
     sf::Sprite overlay;
-    sf::Sprite underLay;
+    sf::Sprite underlay;
     sf::RectangleShape p1Health;
     sf::RectangleShape p2Health;
 public:
