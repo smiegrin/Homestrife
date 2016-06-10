@@ -36,6 +36,8 @@ void HealthBar::drawSelf(sf::RenderWindow* window) {
 int HealthBar::logic() {
     p1Health.setSize(sf::Vector2f(p1->getHealthPercent()*3.61,16));
     p1Health.setPosition(792-p1->getHealthPercent()*3.61,5);
+    if(p1->getHealthPercent() < 15) p1Health.setFillColor((p1Health.getFillColor() == sf::Color::Blue) ? sf::Color(220,220,255,255) : sf::Color::Blue);
     p2Health.setSize(sf::Vector2f(p2->getHealthPercent()*3.61,16));
     p2Health.setPosition(8,5);
+    if(p2->getHealthPercent() < 15) p2Health.setFillColor((p2Health.getFillColor() == sf::Color::Red) ? sf::Color(255,220,220,255) : sf::Color::Red);
 }

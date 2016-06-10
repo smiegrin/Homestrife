@@ -34,7 +34,7 @@ int BattleScreen::open(sf::RenderWindow* window) {
     FlashText countdown = FlashText("3",sf::Color::Red, sf::Color::Blue);
     countdown.setFont(&ResourceManager::PixelFont);
     countdown.setSize(30);
-    countdown.setPosition(400-countdown.getWidth()/2, 30);
+    countdown.setPosition(400-countdown.getWidth()/2, 60);
     dispList.push_front(&countdown);
 
     //temporary ground
@@ -118,12 +118,12 @@ int BattleScreen::open(sf::RenderWindow* window) {
             anim++;
             if (anim == -180) {
                 countdown.setString("2");
-                countdown.setPosition(400-countdown.getWidth()/2, 30);
+                countdown.setPosition(400-countdown.getWidth()/2, 60);
                 beep.play();
             }
             if (anim == -120) {
                 countdown.setString("1");
-                countdown.setPosition(400-countdown.getWidth()/2, 30);
+                countdown.setPosition(400-countdown.getWidth()/2, 60);
                 beep.play();
             }
             if (anim == -60) {
