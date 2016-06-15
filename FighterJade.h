@@ -2,10 +2,14 @@
 #define FIGHTER_JADE_H
 
 #include "Fighter.h"
+#include "AnimatedSprite.hpp"
 #include <SFML/Audio.hpp>
 
 class FighterJade : public Fighter {
 private:
+    AnimatedSprite runningSprite;
+    sf::Sprite standingSprite;
+    sf::Sprite jumpingSprite;
     sf::Sound gunSound;
 public:
     FighterJade(int);

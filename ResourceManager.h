@@ -14,10 +14,12 @@ public:
     static sf::Texture DaveStand;
     static sf::Texture DaveRun;
     static sf::Texture JadeStand;
+    static sf::Texture JadeRun;
     static sf::Texture HealthOverlay;
     static sf::Texture HealthUnderlay;
 
     static Animation DaveRunAnim;
+    static Animation JadeRunAnim;
 
     static sf::Font ArialFont;
     static sf::Font PixelFont;
