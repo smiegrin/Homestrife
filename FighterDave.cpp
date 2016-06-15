@@ -10,6 +10,8 @@ FighterDave::FighterDave(int initDirection) {
     anim = 0;
     health = 100;
     maxHealth = 100;
+    energy = 50;
+    maxEnergy = 100;
     power = 2;
     defense = 2;
     attackSpeed = 5;

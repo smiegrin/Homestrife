@@ -22,6 +22,12 @@ int Fighter::getMaxHealth() { return maxHealth; }
 
 int Fighter::getHealthPercent() { return 100*health/maxHealth; }
 
+int Fighter::getEnergyNum() { return energy; }
+
+int Fighter::getMaxEnergy() { return maxEnergy; }
+
+int Fighter::getEnergyPercent() { return 100*energy/maxEnergy; }
+
 int Fighter::getDefense() { return defense; }
 
 int Fighter::getPower() { return power; }

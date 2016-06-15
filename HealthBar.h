@@ -12,7 +12,9 @@ private:
     sf::Sprite overlay;
     sf::Sprite underlay;
     sf::RectangleShape p1Health;
+    sf::RectangleShape p1Energy;
     sf::RectangleShape p2Health;
+    sf::RectangleShape p2Energy;
 public:
     HealthBar();
     HealthBar(Fighter*,Fighter*);

@@ -21,6 +21,8 @@ protected:
     int anim;
     int health;
     int maxHealth;
+    int energy;
+    int maxEnergy;
     int defense;
     int power;
     int attackSpeed;
@@ -38,6 +40,9 @@ public:
     int getHealthNum();
     int getMaxHealth();
     int getHealthPercent();
+    int getEnergyNum();
+    int getMaxEnergy();
+    int getEnergyPercent();
     int getDefense();
     int getPower();
     int getAttackSpeed();
