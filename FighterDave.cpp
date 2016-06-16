@@ -98,7 +98,7 @@ void FighterDave::input(Input command) {
         if(xVel < 0) break;
         xVel = 0;
         break;
-    case ATTACK_LOW:
+    case ATT_REGULAR:
         if(cooldown != 0) break;
         if(status == READY) {
             status = ATTACK;
@@ -106,7 +106,7 @@ void FighterDave::input(Input command) {
             xVel += direction*4;
         }
         break;
-    case ATTACK_HIGH:
+    case ATT_SPECIAL:
         break;
     }
 }

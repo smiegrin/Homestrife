@@ -105,14 +105,14 @@ void FighterRose::input(Input command) {
         if(xVel < 0) break;
         xVel = 0;
         break;
-    case ATTACK_LOW:
+    case ATT_REGULAR:
         if(cooldown <= 5 && (status == ATTACK || status == ATTACK_AIR)) cooldown += 5;
         if(status == READY) {
             status = ATTACK;
             cooldown = attackSpeed;
         }
         break;
-    case ATTACK_HIGH:
+    case ATT_SPECIAL:
         break;
     }
 }

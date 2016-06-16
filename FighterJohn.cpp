@@ -92,7 +92,7 @@ void FighterJohn::input(Input command) {
         if(xVel < 0) break;
         xVel = 0;
         break;
-    case ATTACK_LOW:
+    case ATT_REGULAR:
         if(cooldown != 0 || health == 0) break;
         if(status == READY) {
             status = ATTACK;
@@ -105,7 +105,7 @@ void FighterJohn::input(Input command) {
             cooldown = attackSpeed;
         }
         break;
-    case ATTACK_HIGH:
+    case ATT_SPECIAL:
         break;
     }
 }

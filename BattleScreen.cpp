@@ -69,10 +69,10 @@ int BattleScreen::open(sf::RenderWindow* window) {
                     p1->input(Fighter::GO_RIGHT);
                     break;
                 case sf::Keyboard::Slash:
-                    p1->input(Fighter::ATTACK_LOW);
+                    p1->input(Fighter::ATT_REGULAR);
                     break;
                 case sf::Keyboard::Period:
-                    p1->input(Fighter::ATTACK_HIGH);
+                    p1->input(Fighter::ATT_SPECIAL);
                     break;
                 //player 2 controlls
                 case sf::Keyboard::W:
@@ -86,10 +86,10 @@ int BattleScreen::open(sf::RenderWindow* window) {
                     p2->input(Fighter::GO_RIGHT);
                     break;
                 case sf::Keyboard::LShift:
-                    p2->input(Fighter::ATTACK_LOW);
+                    p2->input(Fighter::ATT_REGULAR);
                     break;
                 case sf::Keyboard::Z:
-                    p2->input(Fighter::ATTACK_HIGH);
+                    p2->input(Fighter::ATT_SPECIAL);
                     break;
                 }
             }
