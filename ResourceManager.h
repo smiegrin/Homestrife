@@ -11,6 +11,7 @@ public:
     static sf::Texture SkyTexture;
     static sf::Texture JohnStand;
     static sf::Texture RoseStand;
+    static sf::Texture RoseRun;
     static sf::Texture DaveStand;
     static sf::Texture DaveRun;
     static sf::Texture JadeStand;
@@ -18,6 +19,7 @@ public:
     static sf::Texture HealthOverlay;
     static sf::Texture HealthUnderlay;
 
+    static Animation RoseRunAnim;
     static Animation DaveRunAnim;
     static Animation JadeRunAnim;
 

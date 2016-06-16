@@ -17,12 +17,21 @@ FighterRose::FighterRose(int initDirection) {
     attackSpeed = 10;
     cooldown = 0;
     moveSpeed = 8;
-    spriteSheet = ResourceManager::RoseStand;
-    look = sf::Sprite();
-    look.setTexture(spriteSheet);
-    look.setTextureRect(sf::IntRect(100,70,180,220));
-    look.setOrigin(100,100);
     status = READY;
+
+    //sprites
+    standingSprite = sf::Sprite();
+    standingSprite.setTexture(ResourceManager::RoseStand);
+    standingSprite.setOrigin(195,170);
+
+    jumpingSprite = sf::Sprite();
+    jumpingSprite.setTexture(ResourceManager::RoseRun);
+    jumpingSprite.setTextureRect(sf::IntRect(40,55,160,230));
+    jumpingSprite.setOrigin(100,100);
+
+    runningSprite = AnimatedSprite();
+    runningSprite.setAnimation(ResourceManager::RoseRunAnim);
+    runningSprite.setOrigin(100,100);
 
     //initialize sounds
     wandSound.setBuffer(ResourceManager::LightWhoosh);
@@ -109,12 +118,41 @@ void FighterRose::input(Input command) {
 }
 
 void FighterRose::drawSelf(sf::RenderWindow *window) {
-    look.setPosition(x,y);
-    look.setScale(direction,1);
-    if(status == KO || status == KO_AIR) look.setRotation(90*-direction);
-    else if(status == DOWN || status == DOWN_AIR) look.setRotation(30*-direction);
-    else look.setRotation(0);
-    window->draw(look);
+    if(status == DOWN || status == DOWN_AIR) {
+        jumpingSprite.setRotation(direction*-30);
+        jumpingSprite.setPosition(x,y);
+        jumpingSprite.setScale(direction,1);
+        window->draw(jumpingSprite);
+    }
+    else if(status == READY) {
+        if(xVel == 0) {
+            standingSprite.setPosition(x,y);
+            standingSprite.setScale(direction,1);
+            window->draw(standingSprite);
+        }
+        else {
+            runningSprite.update(sf::seconds(0.015f));
+            runningSprite.setScale(direction,1);
+            runningSprite.setPosition(x,y);
+            window->draw(runningSprite);
+        }
+    }
+    else if(status == READY_AIR) {
+        jumpingSprite.setRotation(0);
+        jumpingSprite.setPosition(x,y);
+        jumpingSprite.setScale(direction,1);
+        window->draw(jumpingSprite);
+    }
+    else if(status == ATTACK || status == ATTACK_AIR) {
+        standingSprite.setPosition(x,y);
+        standingSprite.setScale(direction,1);
+        window->draw(standingSprite);
+    }
+    else if(status == KO || status == KO_AIR) {
+        standingSprite.setRotation(90*-direction);
+        standingSprite.setPosition(x,y);
+        window->draw(standingSprite);
+    }
 }
 
 bool FighterRose::hitAt(int hitX, int hitY, int hitPower = 0) {
