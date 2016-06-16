@@ -44,13 +44,13 @@ int FighterJade::logic() {
     y += yVel;
     if (cooldown != 0) {
         cooldown--;
-        if((cooldown == 12 || cooldown == 8 || cooldown == 4 ) && (status == LOW || status == LOW_AIR)) {
+        if((cooldown == 12 || cooldown == 8 || cooldown == 4 ) && (status == ATTACK || status == ATTACK_AIR)) {
             gunSound.play();
             int temp = 0;
             while(x+temp <= 800 && x+temp >= 0 && !opponent->hitAt(x+temp,y,4)) temp += 100*direction;
         }
-        if(cooldown == 0 && (status == LOW || status == HIGH || status == DOWN)) status = READY, xVel = 0;
-        if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR || status == DOWN_AIR)) status = READY_AIR;
+        if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
+        if(cooldown == 0 && (status == ATTACK_AIR || status == SPECIAL_AIR || status == DOWN_AIR)) status = READY_AIR;
     }
     if (y >= 350) {
         y = 350;
@@ -101,11 +101,11 @@ void FighterJade::input(Input command) {
     case ATTACK_LOW:
         if(cooldown != 0) break;
         if(status == READY) {
-            status = LOW;
+            status = ATTACK;
             cooldown = attackSpeed;
         }
         if(status == READY_AIR) {
-            status = LOW_AIR;
+            status = ATTACK_AIR;
             cooldown = attackSpeed;
         }
         break;
@@ -140,7 +140,7 @@ void FighterJade::drawSelf(sf::RenderWindow *window) {
         jumpingSprite.setScale(direction,1);
         window->draw(jumpingSprite);
     }
-    else if(status == LOW || status == LOW_AIR) {
+    else if(status == ATTACK || status == ATTACK_AIR) {
         standingSprite.setPosition(x,y);
         standingSprite.setScale(direction,1);
         window->draw(standingSprite);
@@ -165,8 +165,8 @@ bool FighterJade::hitAt(int hitX, int hitY, int hitPower = 0) {
         else {
             cooldown = hitPower;
             xVel = hitPower*-direction;
-            if(status == READY || status == LOW || status == HIGH) status = DOWN;
-            else if(status == READY_AIR || status == LOW_AIR || status == HIGH_AIR) status = DOWN_AIR;
+            if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
+            else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
         }
         return true;
     }

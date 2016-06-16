@@ -43,12 +43,12 @@ int FighterDave::logic() {
     y += yVel;
     if (cooldown != 0) {
         cooldown--;
-        if(cooldown == 1 && (status == LOW)) {
+        if(cooldown == 1 && (status == ATTACK)) {
             whoosh.play();
             opponent->hitAt(x+direction*100,y,5);
         }
-        if(cooldown == 0 && (status == LOW || status == HIGH || status == DOWN)) status = READY, xVel = 0;
-        if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR || status == DOWN_AIR)) status = READY_AIR;
+        if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
+        if(cooldown == 0 && (status == ATTACK_AIR || status == SPECIAL_AIR || status == DOWN_AIR)) status = READY_AIR;
     }
     if (y >= 350) {
         y = 350;
@@ -56,8 +56,8 @@ int FighterDave::logic() {
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
-        if(status == LOW_AIR) status = LOW;
-        if(status == LOW && xVel != 0) xVel -= direction;
+        if(status == ATTACK_AIR) status = ATTACK;
+        if(status == ATTACK && xVel != 0) xVel -= direction;
         if(status == KO) {
             if(xVel > 0) xVel -= 1;
             else if (xVel < 0) xVel += 1;
@@ -101,7 +101,7 @@ void FighterDave::input(Input command) {
     case ATTACK_LOW:
         if(cooldown != 0) break;
         if(status == READY) {
-            status = LOW;
+            status = ATTACK;
             cooldown = attackSpeed;
             xVel += direction*4;
         }
@@ -112,13 +112,13 @@ void FighterDave::input(Input command) {
 }
 
 void FighterDave::drawSelf(sf::RenderWindow *window) {
-    if((status == READY || status == LOW) && xVel != 0) {
+    if((status == READY || status == ATTACK) && xVel != 0) {
         runningSprite.update(sf::seconds(0.015f));
         runningSprite.setScale(direction,1);
         runningSprite.setPosition(x,y);
         window->draw(runningSprite);
     }
-    else if((status == READY || status == LOW) && xVel == 0) {
+    else if((status == READY || status == ATTACK) && xVel == 0) {
         standingSprite.setScale(direction,1);
         standingSprite.setPosition(x,y);
         standingSprite.setRotation(0);
@@ -154,8 +154,8 @@ bool FighterDave::hitAt(int hitX, int hitY, int hitPower = 0) {
         else {
             cooldown = hitPower;
             xVel = hitPower*-direction;
-            if(status == READY || status == LOW || status == HIGH) status = DOWN;
-            else if(status == READY_AIR || status == LOW_AIR || status == HIGH_AIR) status = DOWN_AIR;
+            if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
+            else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
         }
         return true;
     }

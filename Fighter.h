@@ -4,7 +4,7 @@
 #include "GameObject.h"
 
 class Fighter : public GameObject {
-public: enum State {READY, READY_AIR, HIGH, HIGH_AIR, LOW, LOW_AIR, DOWN, DOWN_AIR, KO, KO_AIR};
+public: enum State {READY, READY_AIR, SPECIAL, SPECIAL_AIR, ATTACK, ATTACK_AIR, DOWN, DOWN_AIR, KO, KO_AIR};
         enum Input {JUMP, GO_LEFT, GO_RIGHT, STOP_LEFT, STOP_RIGHT, ATTACK_LOW, ATTACK_HIGH};
 protected:
     sf::Sprite look;

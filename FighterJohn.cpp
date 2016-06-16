@@ -35,13 +35,13 @@ int FighterJohn::logic() {
     x += xVel;
     y += yVel;
     if (cooldown != 0) {
-        if((status == LOW || status == LOW_AIR) && cooldown == 1)  {
+        if((status == ATTACK || status == ATTACK_AIR) && cooldown == 1)  {
             opponent->hitAt(x+direction*100, y,10);
             thud.play();
         }
         cooldown--;
-        if(cooldown == 0 && (status == LOW || status == HIGH || status == DOWN)) status = READY, xVel = 0;
-        if(cooldown == 0 && (status == LOW_AIR || status == HIGH_AIR || status == DOWN_AIR)) status = READY_AIR;
+        if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
+        if(cooldown == 0 && (status == ATTACK_AIR || status == SPECIAL_AIR || status == DOWN_AIR)) status = READY_AIR;
     }
     if (y >= 350) {
         y = 350;
@@ -49,7 +49,7 @@ int FighterJohn::logic() {
         if(status == READY_AIR) status = READY;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
-        if(status == KO || status == HIGH || status == LOW || status == DOWN) {
+        if(status == KO || status == SPECIAL || status == ATTACK || status == DOWN) {
             if(xVel > 0) xVel -= 1;
             else if (xVel < 0) xVel += 1;
         }
@@ -95,12 +95,12 @@ void FighterJohn::input(Input command) {
     case ATTACK_LOW:
         if(cooldown != 0 || health == 0) break;
         if(status == READY) {
-            status = LOW;
+            status = ATTACK;
             whoosh.play();
             cooldown = attackSpeed;
         }
         else if (status == READY_AIR) {
-            status = LOW_AIR;
+            status = ATTACK_AIR;
             whoosh.play();
             cooldown = attackSpeed;
         }
@@ -133,8 +133,8 @@ bool FighterJohn::hitAt(int hitX, int hitY, int hitPower = 0) {
         else {
             cooldown = hitPower;
             xVel = hitPower*-direction;
-            if(status == READY || status == LOW || status == HIGH) status = DOWN;
-            else if(status == READY_AIR || status == LOW_AIR || status == HIGH_AIR) status = DOWN_AIR;
+            if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
+            else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
         }
         return true;
     }
