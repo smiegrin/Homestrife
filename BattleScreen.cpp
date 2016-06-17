@@ -49,8 +49,8 @@ int BattleScreen::open(sf::RenderWindow* window) {
                 return 0;
             }
             if (event.type == sf::Event::MouseButtonPressed) {
-                p1->hitAt(event.mouseButton.x, event.mouseButton.y, 10);
-                p2->hitAt(event.mouseButton.x, event.mouseButton.y, 10);
+                p1->hitAt(event.mouseButton.x, event.mouseButton.y, 10, 0, 0);
+                p2->hitAt(event.mouseButton.x, event.mouseButton.y, 10, 0, 0);
             }
             if (!paused && event.type == sf::Event::KeyPressed) {//do the gaming things
                 switch (event.key.code) {

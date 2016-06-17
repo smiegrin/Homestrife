@@ -45,7 +45,7 @@ int FighterDave::logic() {
         cooldown--;
         if(cooldown == 1 && (status == ATTACK)) {
             whoosh.play();
-            opponent->hitAt(x+direction*100,y,5);
+            opponent->hitAt(x+direction*100,y,5,direction*5,-1);
         }
         if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
         if(cooldown == 0 && (status == ATTACK_AIR || status == SPECIAL_AIR || status == DOWN_AIR)) status = READY_AIR;
@@ -141,19 +141,20 @@ void FighterDave::drawSelf(sf::RenderWindow *window) {
     }
 }
 
-bool FighterDave::hitAt(int hitX, int hitY, int hitPower = 0) {
+bool FighterDave::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {
     if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
         if(hitPower == 0) return true;
         health -= hitPower - defense;
         if (health <= 0){
             health = 0;
             status = KO_AIR;
-            yVel = -hitPower;
-            xVel = hitPower*direction*-1.2;
+            yVel += forceY * 1.8;
+            xVel += forceX * 1.2;
         }
         else {
             cooldown = hitPower;
-            xVel = hitPower*-direction;
+            xVel += forceX;
+            yVel += forceY;
             if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
             else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
         }
@@ -161,3 +162,4 @@ bool FighterDave::hitAt(int hitX, int hitY, int hitPower = 0) {
     }
     return false;
 }
+

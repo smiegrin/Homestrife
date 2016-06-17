@@ -47,24 +47,24 @@ int FighterRose::logic() {
         //check for regular attack
         if(cooldown == 3 && (status == ATTACK || status == ATTACK_AIR)) {
             wandSound.play();
-            if (opponent->hitAt(x+direction*75,y,3)) energy += 3;
-            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y,5)) {
+            if (opponent->hitAt(x+direction*75,y,3,rand()%7-3,rand()%7-3)) energy += 3;
+            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y,5,rand()%7-3,rand()%7-3)) {
                 energy += 5;
                 //zap sound goes here
             }
         }
         if(cooldown == 6 && (status == ATTACK || status == ATTACK_AIR)) {
             wandSound.play();
-            if (opponent->hitAt(x+direction*75,y+10,3)) energy += 3;
-            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y+10,5)) {
+            if (opponent->hitAt(x+direction*75,y+10,3,rand()%7-3,rand()%7-3)) energy += 3;
+            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y+10,5,rand()%7-3,rand()%7-3)) {
                 energy += 5;
                 //zap sound goes here
             }
         }
         if(cooldown == 9 && (status == ATTACK || status == ATTACK_AIR)) {
             wandSound.play();
-            if (opponent->hitAt(x+direction*75,y-10,3)) energy += 3;
-            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y-10,5)) {
+            if (opponent->hitAt(x+direction*75,y-10,3,rand()%7-3,rand()%7-3)) energy += 3;
+            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y-10,5,rand()%7-3,rand()%7-3)) {
                 energy += 5;
                 //zap sound goes here
             }
@@ -73,7 +73,7 @@ int FighterRose::logic() {
         if(cooldown == 15 && (status == SPECIAL || status == SPECIAL_AIR)) {
             //play awesome zap sound
             bool success = false;
-            for (int i = x; i > 0 && i < 800 && !success; i += direction) if (opponent->hitAt(i,y,20)) success = true;
+            for (int i = x; i > 0 && i < 800 && !success; i += direction) if (opponent->hitAt(i,y,20,direction*20,-3)) success = true;
             energy = (success) ? 15 : 0;
         }
         if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
@@ -199,19 +199,20 @@ void FighterRose::drawSelf(sf::RenderWindow *window) {
     }
 }
 
-bool FighterRose::hitAt(int hitX, int hitY, int hitPower = 0) {
+bool FighterRose::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {
     if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
         if(hitPower == 0) return true;
         health -= hitPower - defense;
         if (health <= 0){
             health = 0;
             status = KO_AIR;
-            yVel = -hitPower;
-            xVel = hitPower*direction*-1.2;
+            yVel += forceY * 1.8;
+            xVel += forceX * 1.2;
         }
         else {
             cooldown = hitPower;
-            xVel = hitPower*-direction;
+            xVel += forceX;
+            yVel += forceY;
             if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
             else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
         }

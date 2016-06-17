@@ -51,7 +51,7 @@ public:
 
     virtual int logic() = 0;
     virtual void input(Input) = 0;
-    virtual bool hitAt(int,int,int) = 0;
+    virtual bool hitAt(int,int,int,int,int) = 0;
     void setPosition(int,int);
     void setVelocity(int,int);
     void setOpponent(Fighter*);

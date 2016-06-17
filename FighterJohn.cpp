@@ -36,7 +36,7 @@ int FighterJohn::logic() {
     y += yVel;
     if (cooldown != 0) {
         if((status == ATTACK || status == ATTACK_AIR) && cooldown == 1)  {
-            opponent->hitAt(x+direction*100, y,10);
+            opponent->hitAt(x+direction*100, y,10,direction*5,-15);
             thud.play();
         }
         cooldown--;
@@ -120,19 +120,20 @@ void FighterJohn::drawSelf(sf::RenderWindow *window) {
     window->draw(standingSprite);
 }
 
-bool FighterJohn::hitAt(int hitX, int hitY, int hitPower = 0) {
+bool FighterJohn::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {
     if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
-        if (hitPower == 0) return true;
+        if(hitPower == 0) return true;
         health -= hitPower - defense;
         if (health <= 0){
             health = 0;
             status = KO_AIR;
-            yVel = -hitPower;
-            xVel = hitPower*direction*-1.2;
+            yVel += forceY * 1.8;
+            xVel += forceX * 1.2;
         }
         else {
             cooldown = hitPower;
-            xVel = hitPower*-direction;
+            xVel += forceX;
+            yVel += forceY;
             if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
             else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
         }
@@ -140,3 +141,4 @@ bool FighterJohn::hitAt(int hitX, int hitY, int hitPower = 0) {
     }
     return false;
 }
+

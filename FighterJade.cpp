@@ -47,7 +47,7 @@ int FighterJade::logic() {
         if((cooldown == 12 || cooldown == 8 || cooldown == 4 ) && (status == ATTACK || status == ATTACK_AIR)) {
             gunSound.play();
             int temp = 0;
-            while(x+temp <= 800 && x+temp >= 0 && !opponent->hitAt(x+temp,y,4)) temp += 100*direction;
+            while(x+temp <= 800 && x+temp >= 0 && !opponent->hitAt(x+temp,y,4,direction,0)) temp += 100*direction;
         }
         if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
         if(cooldown == 0 && (status == ATTACK_AIR || status == SPECIAL_AIR || status == DOWN_AIR)) status = READY_AIR;
@@ -152,19 +152,20 @@ void FighterJade::drawSelf(sf::RenderWindow *window) {
     }
 }
 
-bool FighterJade::hitAt(int hitX, int hitY, int hitPower = 0) {
+bool FighterJade::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {
     if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
-        if (hitPower == 0) return true;
+        if(hitPower == 0) return true;
         health -= hitPower - defense;
         if (health <= 0){
             health = 0;
             status = KO_AIR;
-            yVel = -hitPower;
-            xVel = hitPower*direction*-1.2;
+            yVel += forceY * 1.8;
+            xVel += forceX * 1.2;
         }
         else {
             cooldown = hitPower;
-            xVel = hitPower*-direction;
+            xVel += forceX;
+            yVel += forceY;
             if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
             else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
         }
@@ -172,3 +173,4 @@ bool FighterJade::hitAt(int hitX, int hitY, int hitPower = 0) {
     }
     return false;
 }
+
