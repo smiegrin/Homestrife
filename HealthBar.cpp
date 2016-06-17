@@ -20,13 +20,13 @@ HealthBar::HealthBar(Fighter* p1ptr, Fighter* p2ptr) {
     p2Health.setPosition(8,5);
 
     //energy indicators
-    p1Energy = sf::RectangleShape(sf::Vector2f(400,16));
+    p1Energy = sf::RectangleShape(sf::Vector2f(400,34));
     p1Energy.setFillColor(sf::Color::Blue);
-    p1Energy.setPosition(400,50);
+    p1Energy.setPosition(400,21);
 
-    p2Energy = sf::RectangleShape(sf::Vector2f(400,16));
+    p2Energy = sf::RectangleShape(sf::Vector2f(400,34));
     p2Energy.setFillColor(sf::Color::Red);
-    p2Energy.setPosition(0,50);
+    p2Energy.setPosition(0,21);
 
     //overlay
     overlay = sf::Sprite();
@@ -51,8 +51,8 @@ int HealthBar::logic() {
     p2Health.setSize(sf::Vector2f(p2->getHealthPercent()*3.61,16));
     p2Health.setPosition(8,5);
     if(p2->getHealthPercent() < 15) p2Health.setFillColor((p2Health.getFillColor() == sf::Color::Red) ? sf::Color(255,220,220,255) : sf::Color::Red);
-    p1Energy.setSize(sf::Vector2f(p1->getEnergyPercent()*4,16));
-    p1Energy.setPosition(800-p1->getEnergyPercent()*4,50);
-    p2Energy.setSize(sf::Vector2f(p2->getEnergyPercent()*4,16));
-    p2Energy.setPosition(0,50);
+    p1Energy.setSize(sf::Vector2f(p1->getEnergyPercent()*4,29));
+    p1Energy.setPosition(800-p1->getEnergyPercent()*4,21);
+    p2Energy.setSize(sf::Vector2f(p2->getEnergyPercent()*4,29));
+    p2Energy.setPosition(0,21);
 }
