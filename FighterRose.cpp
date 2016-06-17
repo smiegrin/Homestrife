@@ -44,17 +44,37 @@ int FighterRose::logic() {
     y += yVel;
     if (cooldown != 0) {
         cooldown--;
+        //check for regular attack
         if(cooldown == 3 && (status == ATTACK || status == ATTACK_AIR)) {
             wandSound.play();
-            opponent->hitAt(x+direction*75,y,3);
+            if (opponent->hitAt(x+direction*75,y,3)) energy += 3;
+            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y,5)) {
+                energy += 5;
+                //zap sound goes here
+            }
         }
         if(cooldown == 6 && (status == ATTACK || status == ATTACK_AIR)) {
             wandSound.play();
-            opponent->hitAt(x+direction*75,y+10,3);
+            if (opponent->hitAt(x+direction*75,y+10,3)) energy += 3;
+            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y+10,5)) {
+                energy += 5;
+                //zap sound goes here
+            }
         }
         if(cooldown == 9 && (status == ATTACK || status == ATTACK_AIR)) {
             wandSound.play();
-            opponent->hitAt(x+direction*75,y-10,3);
+            if (opponent->hitAt(x+direction*75,y-10,3)) energy += 3;
+            if (getHealthPercent() < 25 && opponent->hitAt(x+direction*75,y-10,5)) {
+                energy += 5;
+                //zap sound goes here
+            }
+        }
+        //check for special attack
+        if(cooldown == 15 && (status == SPECIAL || status == SPECIAL_AIR)) {
+            //play awesome zap sound
+            bool success = false;
+            for (int i = x; i > 0 && i < 800 && !success; i += direction) if (opponent->hitAt(i,y,20)) success = true;
+            energy = (success) ? 15 : 0;
         }
         if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
         if(cooldown == 0 && (status == ATTACK_AIR || status == SPECIAL_AIR || status == DOWN_AIR)) status = READY_AIR;
@@ -63,6 +83,7 @@ int FighterRose::logic() {
         y = 350;
         yVel = 0;
         if(status == READY_AIR) status = READY;
+        if(status == SPECIAL_AIR) status = SPECIAL;
         if(status == KO_AIR) status = KO;
         if(status == DOWN_AIR) status = DOWN;
         if(status == KO || status == DOWN) {
@@ -70,6 +91,8 @@ int FighterRose::logic() {
             else if (xVel < 0) xVel += 1;
         }
     }
+    if (getHealthPercent() < 10) energy += 1;
+    if (energy > maxEnergy) energy = maxEnergy;
     return 0;
 }
 
@@ -113,6 +136,14 @@ void FighterRose::input(Input command) {
         }
         break;
     case ATT_SPECIAL:
+        if(status == READY && getEnergyPercent() == 100) {
+            status = SPECIAL;
+            cooldown = 60;
+        }
+        if(status == READY_AIR && getEnergyPercent() == 100) {
+            status = SPECIAL_AIR;
+            cooldown = 60;
+        }
         break;
     }
 }
@@ -142,6 +173,19 @@ void FighterRose::drawSelf(sf::RenderWindow *window) {
         jumpingSprite.setPosition(x,y);
         jumpingSprite.setScale(direction,1);
         window->draw(jumpingSprite);
+    }
+    else if(status == SPECIAL || status == SPECIAL_AIR) {
+        standingSprite.setColor((cooldown % 10 < 5) ? sf::Color::White : sf::Color(255,255,255,128));
+        standingSprite.setPosition(x,y);
+        standingSprite.setScale(direction,1);
+        window->draw(standingSprite);
+        //lightning effect
+        if(cooldown < 15) {
+            sf::RectangleShape temp = sf::RectangleShape(sf::Vector2f(800*direction, 5));
+            temp.setPosition(x,y-2);
+            temp.setFillColor(sf::Color(255,128,0,255));
+            window ->draw(temp);
+        }
     }
     else if(status == ATTACK || status == ATTACK_AIR) {
         standingSprite.setPosition(x,y);
