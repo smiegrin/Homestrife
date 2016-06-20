@@ -120,25 +120,3 @@ void FighterJohn::drawSelf(sf::RenderWindow *window) {
     window->draw(standingSprite);
 }
 
-bool FighterJohn::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {
-    if (hitX >= x-width/2 && hitX <= x+width/2 && hitY >= y-height/2 && hitY <= y+height/2) {
-        if(hitPower == 0) return true;
-        health -= hitPower - defense;
-        if (health <= 0){
-            health = 0;
-            status = KO_AIR;
-            yVel += forceY * 1.8;
-            xVel += forceX * 1.2;
-        }
-        else {
-            cooldown = hitPower;
-            xVel += forceX;
-            yVel += forceY;
-            if(status == READY || status == ATTACK || status == SPECIAL) status = DOWN;
-            else if(status == READY_AIR || status == ATTACK_AIR || status == SPECIAL_AIR) status = DOWN_AIR;
-        }
-        return true;
-    }
-    return false;
-}
-
