@@ -54,12 +54,12 @@ void ResourceManager::initialize(){
     RoseRunAnim.addFrame(sf::IntRect(365,55,160,230));
     RoseRunAnim.addFrame(sf::IntRect(205,55,160,230));
     RoseAttPowAnim.setSpriteSheet(RoseAttPow);
-    RoseAttPowAnim.addFrame(sf::IntRect(40,15,235,140));
-    RoseAttPowAnim.addFrame(sf::IntRect(155,15,235,140));
-    RoseAttPowAnim.addFrame(sf::IntRect(310,15,235,140));
-    RoseAttPowAnim.addFrame(sf::IntRect(545,15,235,140));
-    RoseAttPowAnim.addFrame(sf::IntRect(775,15,235,140));
-    RoseAttPowAnim.addFrame(sf::IntRect(1010,15,235,140));
+    RoseAttPowAnim.addFrame(sf::IntRect(109,10,160,95));
+    RoseAttPowAnim.addFrame(sf::IntRect(317,10,160,95));
+    RoseAttPowAnim.addFrame(sf::IntRect(506,10,160,95));
+    RoseAttPowAnim.addFrame(sf::IntRect(689,10,160,95));
+    RoseAttPowAnim.addFrame(sf::IntRect(855,10,160,95));
+    RoseAttPowAnim.addFrame(sf::IntRect(1043,10,160,95));
 
     DaveRunAnim.setSpriteSheet(DaveRun);
     DaveRunAnim.addFrame(sf::IntRect(60,60,210,240));
@@ -67,12 +67,12 @@ void ResourceManager::initialize(){
     DaveRunAnim.addFrame(sf::IntRect(520,60,210,240));
     DaveRunAnim.addFrame(sf::IntRect(290,60,210,240));
     DaveAttAnim.setSpriteSheet(DaveAtt);
-    DaveAttAnim.addFrame(sf::IntRect(80,30,210,170));
-    DaveAttAnim.addFrame(sf::IntRect(215,30,210,170));
-    DaveAttAnim.addFrame(sf::IntRect(345,30,210,170));
-    DaveAttAnim.addFrame(sf::IntRect(545,30,210,170));
-    DaveAttAnim.addFrame(sf::IntRect(730,30,210,170));
-    DaveAttAnim.addFrame(sf::IntRect(995,30,210,170));
+    DaveAttAnim.addFrame(sf::IntRect(40,20,175,105));
+    DaveAttAnim.addFrame(sf::IntRect(255,20,175,105));
+    DaveAttAnim.addFrame(sf::IntRect(430,20,175,105));
+    DaveAttAnim.addFrame(sf::IntRect(620,20,175,105));
+    DaveAttAnim.addFrame(sf::IntRect(805,20,175,105));
+    DaveAttAnim.addFrame(sf::IntRect(1005,20,175,105));
 
     JadeRunAnim.setSpriteSheet(JadeRun);
     JadeRunAnim.addFrame(sf::IntRect(60,60,165,265));
@@ -80,9 +80,9 @@ void ResourceManager::initialize(){
     JadeRunAnim.addFrame(sf::IntRect(520,60,165,265));
     JadeRunAnim.addFrame(sf::IntRect(290,60,165,265));
     JadeAttAnim.setSpriteSheet(JadeAtt);
-    JadeAttAnim.addFrame(sf::IntRect(35,30,355,175));
-    JadeAttAnim.addFrame(sf::IntRect(395,30,355,175));
-    JadeAttAnim.addFrame(sf::IntRect(895,30,355,175));
+    JadeAttAnim.addFrame(sf::IntRect(68,25,295,150));
+    JadeAttAnim.addFrame(sf::IntRect(431,25,295,150));
+    JadeAttAnim.addFrame(sf::IntRect(858,25,295,150));
 
 //sounds
     SimpleBeep.loadFromFile("Sounds/SimpleBeep.wav");

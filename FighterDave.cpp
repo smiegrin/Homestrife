@@ -34,7 +34,7 @@ FighterDave::FighterDave(int initDirection) {
 
     attackingSprite = AnimatedSprite();
     attackingSprite.setAnimation(ResourceManager::DaveAttAnim);
-    attackingSprite.setOrigin(70,70);
+    attackingSprite.setOrigin(50,50);
 
     //initialize sounds
     whoosh.setBuffer(ResourceManager::LightWhoosh);
