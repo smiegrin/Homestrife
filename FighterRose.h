@@ -8,6 +8,7 @@
 class FighterRose : public Fighter {
 private:
     AnimatedSprite runningSprite;
+    AnimatedSprite attPowSprite;
     sf::Sprite standingSprite;
     sf::Sprite jumpingSprite;
     sf::Sound wandSound;

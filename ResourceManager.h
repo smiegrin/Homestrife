@@ -12,16 +12,22 @@ public:
     static sf::Texture JohnStand;
     static sf::Texture RoseStand;
     static sf::Texture RoseRun;
+    static sf::Texture RoseAttPow;
     static sf::Texture DaveStand;
     static sf::Texture DaveRun;
+    static sf::Texture DaveAtt;
     static sf::Texture JadeStand;
     static sf::Texture JadeRun;
+    static sf::Texture JadeAtt;
     static sf::Texture HealthOverlay;
     static sf::Texture HealthUnderlay;
 
     static Animation RoseRunAnim;
+    static Animation RoseAttPowAnim;
     static Animation DaveRunAnim;
+    static Animation DaveAttAnim;
     static Animation JadeRunAnim;
+    static Animation JadeAttAnim;
 
     static sf::Font ArialFont;
     static sf::Font PixelFont;

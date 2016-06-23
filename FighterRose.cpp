@@ -33,6 +33,10 @@ FighterRose::FighterRose(int initDirection) {
     runningSprite.setAnimation(ResourceManager::RoseRunAnim);
     runningSprite.setOrigin(100,100);
 
+    attPowSprite = AnimatedSprite();
+    attPowSprite.setAnimation(ResourceManager::RoseAttPowAnim);
+    attPowSprite.setOrigin(70,70);
+
     //initialize sounds
     wandSound.setBuffer(ResourceManager::LightWhoosh);
     wandSound.setLoop(false);
@@ -188,9 +192,10 @@ void FighterRose::drawSelf(sf::RenderWindow *window) {
         }
     }
     else if(status == ATTACK || status == ATTACK_AIR) {
-        standingSprite.setPosition(x,y);
-        standingSprite.setScale(direction,1);
-        window->draw(standingSprite);
+        attPowSprite.setPosition(x,y);
+        attPowSprite.setScale(direction,1);
+        attPowSprite.update(sf::seconds(.015f));
+        window->draw(attPowSprite);
     }
     else if(status == KO || status == KO_AIR) {
         standingSprite.setRotation(90*-direction);

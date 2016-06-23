@@ -32,6 +32,10 @@ FighterDave::FighterDave(int initDirection) {
     runningSprite.setAnimation(ResourceManager::DaveRunAnim);
     runningSprite.setOrigin(100,100);
 
+    attackingSprite = AnimatedSprite();
+    attackingSprite.setAnimation(ResourceManager::DaveAttAnim);
+    attackingSprite.setOrigin(70,70);
+
     //initialize sounds
     whoosh.setBuffer(ResourceManager::LightWhoosh);
     whoosh.setLoop(false);
@@ -112,22 +116,30 @@ void FighterDave::input(Input command) {
 }
 
 void FighterDave::drawSelf(sf::RenderWindow *window) {
-    if((status == READY || status == ATTACK) && xVel != 0) {
-        runningSprite.update(sf::seconds(0.015f));
-        runningSprite.setScale(direction,1);
-        runningSprite.setPosition(x,y);
-        window->draw(runningSprite);
-    }
-    else if((status == READY || status == ATTACK) && xVel == 0) {
-        standingSprite.setScale(direction,1);
-        standingSprite.setPosition(x,y);
-        standingSprite.setRotation(0);
-        window->draw(standingSprite);
+    if(status == READY) {
+        if (xVel != 0) {
+            runningSprite.update(sf::seconds(0.015f));
+            runningSprite.setScale(direction,1);
+            runningSprite.setPosition(x,y);
+            window->draw(runningSprite);
+        }
+        else {
+            standingSprite.setScale(direction,1);
+            standingSprite.setPosition(x,y);
+            standingSprite.setRotation(0);
+            window->draw(standingSprite);
+        }
     }
     if(status == READY_AIR) {
         jumpingSprite.setScale(direction,1);
         jumpingSprite.setPosition(x,y);
         window->draw(jumpingSprite);
+    }
+    if(status == ATTACK || status == ATTACK_AIR) {
+        attackingSprite.update(sf::seconds(.015f));
+        attackingSprite.setScale(direction,1);
+        attackingSprite.setPosition(x,y);
+        window->draw(attackingSprite);
     }
     if(status == KO || status == KO_AIR) {
         standingSprite.setRotation(90*-direction);

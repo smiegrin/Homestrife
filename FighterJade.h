@@ -8,6 +8,7 @@
 class FighterJade : public Fighter {
 private:
     AnimatedSprite runningSprite;
+    AnimatedSprite attackingSprite;
     sf::Sprite standingSprite;
     sf::Sprite jumpingSprite;
     sf::Sound gunSound;

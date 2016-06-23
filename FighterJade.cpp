@@ -33,6 +33,10 @@ FighterJade::FighterJade(int initDirection) {
     runningSprite.setAnimation(ResourceManager::JadeRunAnim);
     runningSprite.setOrigin(100,110);
 
+    attackingSprite = AnimatedSprite();
+    attackingSprite.setAnimation(ResourceManager::JadeAttAnim);
+    attackingSprite.setOrigin(70,70);
+
     //initialize sounds
     gunSound.setBuffer(ResourceManager::SimpleBeep);
     gunSound.setLoop(false);
@@ -141,9 +145,10 @@ void FighterJade::drawSelf(sf::RenderWindow *window) {
         window->draw(jumpingSprite);
     }
     else if(status == ATTACK || status == ATTACK_AIR) {
-        standingSprite.setPosition(x,y);
-        standingSprite.setScale(direction,1);
-        window->draw(standingSprite);
+        attackingSprite.setPosition(x,y);
+        attackingSprite.setScale(direction,1);
+        attackingSprite.update(sf::seconds(0.015f));
+        window->draw(attackingSprite);
     }
     else if(status == KO || status == KO_AIR) {
         standingSprite.setRotation(90*-direction);
