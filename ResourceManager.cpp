@@ -4,6 +4,8 @@ sf::Font ResourceManager::ArialFont = sf::Font();
 sf::Font ResourceManager::PixelFont = sf::Font();
 
 sf::Texture ResourceManager::JohnStand = sf::Texture();
+sf::Texture ResourceManager::JohnRun = sf::Texture();
+sf::Texture ResourceManager::JohnAtt = sf::Texture();
 sf::Texture ResourceManager::RoseStand = sf::Texture();
 sf::Texture ResourceManager::RoseRun = sf::Texture();
 sf::Texture ResourceManager::RoseAttPow = sf::Texture();
@@ -16,6 +18,8 @@ sf::Texture ResourceManager::JadeAtt = sf::Texture();
 sf::Texture ResourceManager::HealthOverlay = sf::Texture();
 sf::Texture ResourceManager::HealthUnderlay = sf::Texture();
 
+Animation ResourceManager::JohnRunAnim = Animation();
+Animation ResourceManager::JohnAttAnim = Animation();
 Animation ResourceManager::RoseRunAnim = Animation();
 Animation ResourceManager::RoseAttPowAnim = Animation();
 Animation ResourceManager::DaveRunAnim = Animation();
@@ -36,6 +40,8 @@ void ResourceManager::initialize(){
     PixelFont.loadFromFile("TYPOSTUCK.ttf");
 //sprites
     JohnStand.loadFromFile("Sprites/John_Stand.png");
+    JohnRun.loadFromFile("Sprites/John_Run.png");
+    JohnAtt.loadFromFile("Sprites/John_Attack.png");
     RoseStand.loadFromFile("Sprites/Rose_Stand.png");
     RoseRun.loadFromFile("Sprites/Rose_Run.png");
     RoseAttPow.loadFromFile("Sprites/Rose_Attack_Pow.png");
@@ -48,6 +54,19 @@ void ResourceManager::initialize(){
     HealthOverlay.loadFromFile("Sprites/Health_Overlay.png");
     HealthUnderlay.loadFromFile("Sprites/Health_Underlay.png");
 //animations
+    JohnRunAnim.setSpriteSheet(JohnRun);
+    JohnRunAnim.addFrame(sf::IntRect(41,60,260,230));
+    JohnRunAnim.addFrame(sf::IntRect(376,60,260,230));
+    JohnRunAnim.addFrame(sf::IntRect(723,60,260,230));
+    JohnRunAnim.addFrame(sf::IntRect(1037,60,260,230));
+    JohnAttAnim.setSpriteSheet(JohnAtt);
+    JohnAttAnim.addFrame(sf::IntRect(35,10,150,105));
+    JohnAttAnim.addFrame(sf::IntRect(243,10,150,105));
+    JohnAttAnim.addFrame(sf::IntRect(459,10,150,105));
+    JohnAttAnim.addFrame(sf::IntRect(687,10,150,105));
+    JohnAttAnim.addFrame(sf::IntRect(882,10,150,105));
+    JohnAttAnim.addFrame(sf::IntRect(1068,10,150,105));
+
     RoseRunAnim.setSpriteSheet(RoseRun);
     RoseRunAnim.addFrame(sf::IntRect(40,55,160,230));
     RoseRunAnim.addFrame(sf::IntRect(205,55,160,230));

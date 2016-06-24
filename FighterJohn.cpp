@@ -17,11 +17,26 @@ FighterJohn::FighterJohn(int initDirection) {
     attackSpeed = 20;
     cooldown = 0;
     moveSpeed = 8;
+    status = READY;
+
+    //sprites
     standingSprite = sf::Sprite();
     standingSprite.setTexture(ResourceManager::JohnStand);
     standingSprite.setTextureRect(sf::IntRect(15,70,265,230));
     standingSprite.setOrigin(180,100);
-    status = READY;
+
+    jumpingSprite = sf::Sprite();
+    jumpingSprite.setTexture(ResourceManager::JohnRun);
+    jumpingSprite.setTextureRect(sf::IntRect(41,60,260,230));
+    jumpingSprite.setOrigin(180,100);
+
+    runningSprite = AnimatedSprite();
+    runningSprite.setAnimation(ResourceManager::JohnRunAnim);
+    runningSprite.setOrigin(180,100);
+
+    attackingSprite = AnimatedSprite();
+    attackingSprite.setAnimation(ResourceManager::JohnAttAnim);
+    attackingSprite.setOrigin(180,100);
 
     //initialize sounds
     whoosh.setBuffer(ResourceManager::HeavyWhoosh);
@@ -126,13 +141,42 @@ void FighterJohn::input(Input command) {
 }
 
 void FighterJohn::drawSelf(sf::RenderWindow *window) {
-    //update frame for animation
-    standingSprite.setPosition(x,y);
-    standingSprite.setScale(direction,1);
-    if(status == KO || status == KO_AIR) standingSprite.setRotation(90*-direction);
-    else if(status == DOWN || status == DOWN_AIR) standingSprite.setRotation(30*-direction);
-    else standingSprite.setRotation(0);
-    window->draw(standingSprite);
+    if(status == DOWN || status == DOWN_AIR) {
+        jumpingSprite.setRotation(direction*-30);
+        jumpingSprite.setPosition(x,y);
+        jumpingSprite.setScale(direction,1);
+        window->draw(jumpingSprite);
+    }
+    else if(status == READY) {
+        if(xVel == 0) {
+            standingSprite.setPosition(x,y);
+            standingSprite.setScale(direction,1);
+            window->draw(standingSprite);
+        }
+        else {
+            runningSprite.update(sf::seconds(0.015f));
+            runningSprite.setScale(direction,1);
+            runningSprite.setPosition(x,y);
+            window->draw(runningSprite);
+        }
+    }
+    else if(status == READY_AIR) {
+        jumpingSprite.setRotation(0);
+        jumpingSprite.setPosition(x,y);
+        jumpingSprite.setScale(direction,1);
+        window->draw(jumpingSprite);
+    }
+    else if(status == ATTACK || status == ATTACK_AIR) {
+        attackingSprite.setPosition(x,y);
+        attackingSprite.setScale(direction,1);
+        attackingSprite.update(sf::seconds(0.015f));
+        window->draw(attackingSprite);
+    }
+    else if(status == KO || status == KO_AIR) {
+        standingSprite.setRotation(90*-direction);
+        standingSprite.setPosition(x,y);
+        window->draw(standingSprite);
+    }
 }
 
 bool FighterJohn::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {
