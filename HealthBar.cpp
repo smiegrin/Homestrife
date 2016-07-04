@@ -36,11 +36,11 @@ HealthBar::HealthBar(Fighter* p1ptr, Fighter* p2ptr) {
 }
 
 void HealthBar::drawSelf(sf::RenderWindow* window) {
+    window->draw(p1Energy);
+    window->draw(p2Energy);
     window->draw(underlay);
     window->draw(p1Health);
     window->draw(p2Health);
-    window->draw(p1Energy);
-    window->draw(p2Energy);
     window->draw(overlay);
 }
 
