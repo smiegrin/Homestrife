@@ -47,7 +47,7 @@ int FighterDave::logic() {
     y += yVel;
     if (cooldown != 0) {
         cooldown--;
-        if(cooldown == 1 && (status == ATTACK)) {
+        if(cooldown == 1 && (status == ATTACK || status == ATTACK_AIR)) {
             whoosh.play();
             opponent->hitAt(x+direction*100,y,5,direction*5,-1);
         }
@@ -108,6 +108,10 @@ void FighterDave::input(Input command) {
             status = ATTACK;
             cooldown = attackSpeed;
             xVel += direction*4;
+        }
+        else if (status == READY_AIR) {
+            status = ATTACK_AIR;
+            cooldown = attackSpeed;
         }
         break;
     case ATT_SPECIAL:

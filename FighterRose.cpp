@@ -138,6 +138,10 @@ void FighterRose::input(Input command) {
             status = ATTACK;
             cooldown = attackSpeed;
         }
+        else if(status == READY_AIR) {
+            status = ATTACK_AIR;
+            cooldown = attackSpeed;
+        }
         break;
     case ATT_SPECIAL:
         if(status == READY && getEnergyPercent() == 100) {
