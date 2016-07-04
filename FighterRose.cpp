@@ -29,13 +29,13 @@ FighterRose::FighterRose(int initDirection) {
     jumpingSprite.setTextureRect(sf::IntRect(40,55,160,230));
     jumpingSprite.setOrigin(100,100);
 
-    runningSprite = AnimatedSprite();
+    runningSprite = AnimatedSprite(sf::seconds(.06f));
     runningSprite.setAnimation(ResourceManager::RoseRunAnim);
     runningSprite.setOrigin(100,100);
 
-    attPowSprite = AnimatedSprite();
+    attPowSprite = AnimatedSprite(sf::seconds(.045f));
     attPowSprite.setAnimation(ResourceManager::RoseAttPowAnim);
-    attPowSprite.setOrigin(70,70);
+    attPowSprite.setOrigin(60,110);
 
     //initialize sounds
     wandSound.setBuffer(ResourceManager::LightWhoosh);

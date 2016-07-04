@@ -28,13 +28,13 @@ FighterDave::FighterDave(int initDirection) {
     jumpingSprite.setTextureRect(sf::IntRect(60,60,210,240));
     jumpingSprite.setOrigin(100,100);
 
-    runningSprite = AnimatedSprite();
+    runningSprite = AnimatedSprite(sf::seconds(.06f));
     runningSprite.setAnimation(ResourceManager::DaveRunAnim);
     runningSprite.setOrigin(100,100);
 
-    attackingSprite = AnimatedSprite();
+    attackingSprite = AnimatedSprite(sf::seconds(.045f));
     attackingSprite.setAnimation(ResourceManager::DaveAttAnim);
-    attackingSprite.setOrigin(50,50);
+    attackingSprite.setOrigin(200,125);
 
     //initialize sounds
     whoosh.setBuffer(ResourceManager::LightWhoosh);

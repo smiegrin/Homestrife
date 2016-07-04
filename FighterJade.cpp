@@ -29,13 +29,13 @@ FighterJade::FighterJade(int initDirection) {
     jumpingSprite.setTextureRect(sf::IntRect(520,60,165,265));
     jumpingSprite.setOrigin(100,100);
 
-    runningSprite = AnimatedSprite();
+    runningSprite = AnimatedSprite(sf::seconds(.06f));
     runningSprite.setAnimation(ResourceManager::JadeRunAnim);
     runningSprite.setOrigin(100,110);
 
-    attackingSprite = AnimatedSprite();
+    attackingSprite = AnimatedSprite(sf::seconds(.045f));
     attackingSprite.setAnimation(ResourceManager::JadeAttAnim);
-    attackingSprite.setOrigin(70,70);
+    attackingSprite.setOrigin(90,110);
 
     //initialize sounds
     gunSound.setBuffer(ResourceManager::SimpleBeep);

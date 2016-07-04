@@ -30,13 +30,13 @@ FighterJohn::FighterJohn(int initDirection) {
     jumpingSprite.setTextureRect(sf::IntRect(41,60,260,230));
     jumpingSprite.setOrigin(180,100);
 
-    runningSprite = AnimatedSprite();
+    runningSprite = AnimatedSprite(sf::seconds(.06f));
     runningSprite.setAnimation(ResourceManager::JohnRunAnim);
     runningSprite.setOrigin(180,100);
 
-    attackingSprite = AnimatedSprite();
+    attackingSprite = AnimatedSprite(sf::seconds(.045f));
     attackingSprite.setAnimation(ResourceManager::JohnAttAnim);
-    attackingSprite.setOrigin(180,100);
+    attackingSprite.setOrigin(180,130);
 
     //initialize sounds
     whoosh.setBuffer(ResourceManager::HeavyWhoosh);
