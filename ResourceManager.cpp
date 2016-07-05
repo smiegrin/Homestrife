@@ -31,6 +31,7 @@ sf::SoundBuffer ResourceManager::SimpleBeep = sf::SoundBuffer();
 sf::SoundBuffer ResourceManager::LightWhoosh = sf::SoundBuffer();
 sf::SoundBuffer ResourceManager::HeavyWhoosh = sf::SoundBuffer();
 sf::SoundBuffer ResourceManager::Thud = sf::SoundBuffer();
+sf::SoundBuffer ResourceManager::GunShot = sf::SoundBuffer();
 
 sf::Music ResourceManager::SongTemp;
 
@@ -108,6 +109,7 @@ void ResourceManager::initialize(){
     LightWhoosh.loadFromFile("Sounds/LightWhoosh.wav");
     HeavyWhoosh.loadFromFile("Sounds/HeavyWhoosh.wav");
     Thud.loadFromFile("Sounds/HammerThud.wav");
+    GunShot.loadFromFile("Sounds/GunShot.wav");
 //music
     SongTemp.openFromFile("Sounds/SongTemp.wav");
     SongTemp.setLoop(true);

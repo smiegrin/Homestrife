@@ -38,7 +38,7 @@ FighterJade::FighterJade(int initDirection) {
     attackingSprite.setOrigin(90,110);
 
     //initialize sounds
-    gunSound.setBuffer(ResourceManager::SimpleBeep);
+    gunSound.setBuffer(ResourceManager::GunShot);
     gunSound.setLoop(false);
 }
 

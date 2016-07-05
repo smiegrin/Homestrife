@@ -40,6 +40,7 @@ public:
     static sf::SoundBuffer LightWhoosh;
     static sf::SoundBuffer HeavyWhoosh;
     static sf::SoundBuffer Thud;
+    static sf::SoundBuffer GunShot;
 
     static sf::Music SongTemp;
 
