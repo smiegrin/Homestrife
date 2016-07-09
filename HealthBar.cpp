@@ -55,4 +55,5 @@ int HealthBar::logic() {
     p1Energy.setPosition(800-p1->getEnergyPercent()*4,21);
     p2Energy.setSize(sf::Vector2f(p2->getEnergyPercent()*4,29));
     p2Energy.setPosition(0,21);
+	return 0;
 }

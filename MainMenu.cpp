@@ -30,7 +30,7 @@ int MainMenu::open(sf::RenderWindow* window) {
             }
         }
 
-        if(anim < 120) title.setPosition(5,pow(anim - 120,3)/-1728), anim++;
+        if(anim < 120) title.setPosition(5,pow((float)(anim - 120),3)/-1728), anim++;
         if(anim == 120) title.setPosition(5,0);
         if(anim >= 121) fadeOverlay.setFillColor(sf::Color(0,0,0,255*(anim-120)/60)), anim++;
         if(anim == 180) {

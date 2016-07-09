@@ -15,8 +15,8 @@ protected:
     int y;
     int width;
     int height;
-    int xVel = 0;
-    int yVel = 0;
+    int xVel;
+    int yVel;
     int direction;
     int anim;
     int health;
@@ -29,6 +29,7 @@ protected:
     int cooldown;
     int moveSpeed;
 public:
+	Fighter();
     int getXPos();
     int getYPos();
     int getWidth();

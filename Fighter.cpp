@@ -1,6 +1,11 @@
 #include "Fighter.h"
 #include <iostream>
 
+Fighter::Fighter() {
+	xVel = 0;
+	yVel = 0;
+}
+
 int Fighter::getXPos() { return x; }
 
 int Fighter::getYPos() { return y; }
