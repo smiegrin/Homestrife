@@ -4,6 +4,8 @@
 Fighter::Fighter() {
 	xVel = 0;
 	yVel = 0;
+	primaryColor = sf::Color::Black;
+	secondaryColor = sf::Color(128,128,128);
 }
 
 int Fighter::getXPos() { return x; }
@@ -41,6 +43,12 @@ int Fighter::getPower() { return power; }
 int Fighter::getAttackSpeed() { return attackSpeed; }
 
 int Fighter::getMoveSpeed() { return moveSpeed; }
+
+bool Fighter::isAlive() { return (health == 0); }
+
+sf::Color Fighter::getPrimaryColor() { return primaryColor; }
+
+sf::Color Fighter::getSecondaryColor() { return secondaryColor; }
 
 
 bool Fighter::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {

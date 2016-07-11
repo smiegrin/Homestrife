@@ -17,6 +17,8 @@ FighterRose::FighterRose(int initDirection) {
     attackSpeed = 10;
     cooldown = 0;
     moveSpeed = 8;
+    primaryColor = sf::Color(255,136,0);
+    secondaryColor = sf::Color(181,54,218);
     status = READY;
 
     //sprites

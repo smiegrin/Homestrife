@@ -12,25 +12,33 @@ HealthBar::HealthBar(Fighter* p1ptr, Fighter* p2ptr) {
 
     //health indicators
     p1Health = sf::RectangleShape(sf::Vector2f(361,16));
-    p1Health.setFillColor(sf::Color::Blue);
+    p1Health.setFillColor(p1->getSecondaryColor());
     p1Health.setPosition(431,5);
 
     p2Health = sf::RectangleShape(sf::Vector2f(361,16));
-    p2Health.setFillColor(sf::Color::Red);
+    p2Health.setFillColor(p2->getSecondaryColor());
     p2Health.setPosition(8,5);
 
     //energy indicators
     p1Energy = sf::RectangleShape(sf::Vector2f(400,34));
-    p1Energy.setFillColor(sf::Color::Blue);
+    p1Energy.setFillColor(p1->getSecondaryColor());
     p1Energy.setPosition(400,21);
 
     p2Energy = sf::RectangleShape(sf::Vector2f(400,34));
-    p2Energy.setFillColor(sf::Color::Red);
+    p2Energy.setFillColor(p2->getSecondaryColor());
     p2Energy.setPosition(0,21);
 
     //overlay
-    overlay = sf::Sprite();
-    overlay.setTexture(ResourceManager::HealthOverlay);
+    rightOverlay = sf::Sprite();
+    leftOverlay = sf::Sprite();
+    rightOverlay.setTexture(ResourceManager::HealthOverlay);
+    leftOverlay.setTexture(ResourceManager::HealthOverlay);
+    rightOverlay.setTextureRect(sf::IntRect(400,0,400,50));
+    leftOverlay.setTextureRect(sf::IntRect(0,0,400,50));
+    rightOverlay.setColor(p1->getPrimaryColor());
+    leftOverlay.setColor(p2->getPrimaryColor());
+    rightOverlay.setPosition(400,0);
+    leftOverlay.setPosition(0,0);
     underlay = sf::Sprite();
     underlay.setTexture(ResourceManager::HealthUnderlay);
 }
@@ -41,7 +49,8 @@ void HealthBar::drawSelf(sf::RenderWindow* window) {
     window->draw(underlay);
     window->draw(p1Health);
     window->draw(p2Health);
-    window->draw(overlay);
+    window->draw(leftOverlay);
+    window->draw(rightOverlay);
 }
 
 int HealthBar::logic() {

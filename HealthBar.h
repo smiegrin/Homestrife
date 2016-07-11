@@ -9,7 +9,8 @@ class HealthBar : public GameObject {
 private:
     Fighter* p1;
     Fighter* p2;
-    sf::Sprite overlay;
+    sf::Sprite leftOverlay;
+    sf::Sprite rightOverlay;
     sf::Sprite underlay;
     sf::RectangleShape p1Health;
     sf::RectangleShape p1Energy;

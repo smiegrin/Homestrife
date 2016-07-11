@@ -17,6 +17,8 @@ FighterJade::FighterJade(int initDirection) {
     attackSpeed = 15;
     cooldown = 0;
     moveSpeed = 8;
+    primaryColor = sf::Color(0,0,0);
+    secondaryColor = sf::Color(0,255,0);
     status = READY;
 
     //sprites

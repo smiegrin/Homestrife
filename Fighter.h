@@ -7,8 +7,8 @@ class Fighter : public GameObject {
 public: enum State {READY, READY_AIR, SPECIAL, SPECIAL_AIR, ATTACK, ATTACK_AIR, DOWN, DOWN_AIR, KO, KO_AIR};
         enum Input {JUMP, GO_LEFT, GO_RIGHT, STOP_LEFT, STOP_RIGHT, ATT_REGULAR, ATT_SPECIAL};
 protected:
-    sf::Sprite look;
-    sf::Texture spriteSheet;
+    sf::Color primaryColor;
+    sf::Color secondaryColor;
     State status;
     Fighter* opponent;
     int x;
@@ -49,6 +49,8 @@ public:
     int getAttackSpeed();
     int getMoveSpeed();
     bool isAlive();
+    sf::Color getPrimaryColor();
+    sf::Color getSecondaryColor();
 
     virtual int logic() = 0;
     virtual void input(Input) = 0;

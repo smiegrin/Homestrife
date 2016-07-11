@@ -17,6 +17,8 @@ FighterDave::FighterDave(int initDirection) {
     attackSpeed = 5;
     cooldown = 0;
     moveSpeed = 8;
+    primaryColor = sf::Color(183,13,14);
+    secondaryColor = sf::Color(255,33,6);
     status = READY;
 
     standingSprite = sf::Sprite();

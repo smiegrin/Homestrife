@@ -17,6 +17,8 @@ FighterJohn::FighterJohn(int initDirection) {
     attackSpeed = 20;
     cooldown = 0;
     moveSpeed = 8;
+    primaryColor = sf::Color(0,135,235);
+    secondaryColor = sf::Color(255,255,0);
     status = READY;
 
     //sprites
