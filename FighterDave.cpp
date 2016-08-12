@@ -26,9 +26,9 @@ FighterDave::FighterDave(int initDirection) {
     standingSprite.setOrigin(260,220);
 
     jumpingSprite = sf::Sprite();
-    jumpingSprite.setTexture(ResourceManager::DaveRun);
-    jumpingSprite.setTextureRect(sf::IntRect(60,60,210,240));
-    jumpingSprite.setOrigin(100,100);
+    jumpingSprite.setTexture(ResourceManager::DaveJump);
+    jumpingSprite.setTextureRect(sf::IntRect(75,145,250,250));
+    jumpingSprite.setOrigin(125,125);
 
     runningSprite = AnimatedSprite(sf::seconds(.06f));
     runningSprite.setAnimation(ResourceManager::DaveRunAnim);
@@ -137,6 +137,16 @@ void FighterDave::drawSelf(sf::RenderWindow *window) {
         }
     }
     if(status == READY_AIR) {
+        if (yVel < 0) {
+            anim = (anim > 3) ? 0 : anim+1;
+            if (anim == 0) jumpingSprite.rotate(direction*90);
+            jumpingSprite.setTextureRect(sf::IntRect(75,145,250,250));
+        }
+        else {
+            anim = 0;
+            jumpingSprite.setRotation(0);
+            jumpingSprite.setTextureRect(sf::IntRect(345,430,250,270));
+        }
         jumpingSprite.setScale(direction,1);
         jumpingSprite.setPosition(x,y);
         window->draw(jumpingSprite);

@@ -11,6 +11,7 @@ sf::Texture ResourceManager::RoseRun = sf::Texture();
 sf::Texture ResourceManager::RoseAttPow = sf::Texture();
 sf::Texture ResourceManager::DaveStand = sf::Texture();
 sf::Texture ResourceManager::DaveRun = sf::Texture();
+sf::Texture ResourceManager::DaveJump = sf::Texture();
 sf::Texture ResourceManager::DaveAtt = sf::Texture();
 sf::Texture ResourceManager::JadeStand = sf::Texture();
 sf::Texture ResourceManager::JadeRun = sf::Texture();
@@ -48,6 +49,7 @@ void ResourceManager::initialize(){
     RoseAttPow.loadFromFile("Sprites/Rose_Attack_Pow.png");
     DaveStand.loadFromFile("Sprites/Dave_Stand.png");
     DaveRun.loadFromFile("Sprites/Dave_Run.png");
+    DaveJump.loadFromFile("Sprites/Dave_Jump.png");
     DaveAtt.loadFromFile("Sprites/Dave_Attack.png");
     JadeStand.loadFromFile("Sprites/Jade_Stand.png");
     JadeRun.loadFromFile("Sprites/Jade_Run.png");

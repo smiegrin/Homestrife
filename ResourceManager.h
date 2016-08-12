@@ -17,6 +17,7 @@ public:
     static sf::Texture RoseAttPow;
     static sf::Texture DaveStand;
     static sf::Texture DaveRun;
+    static sf::Texture DaveJump;
     static sf::Texture DaveAtt;
     static sf::Texture JadeStand;
     static sf::Texture JadeRun;
