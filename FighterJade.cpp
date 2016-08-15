@@ -10,7 +10,7 @@ FighterJade::FighterJade(int initDirection) {
     anim = 0;
     health = 100;
     maxHealth = 100;
-    energy = 50;
+    energy = 45;
     maxEnergy = 100;
     power = 2;
     defense = 2;
@@ -54,6 +54,11 @@ int FighterJade::logic() {
             gunSound.play();
             int temp = 0;
             while(x+temp <= 800 && x+temp >= 0 && !opponent->hitAt(x+temp,y,4,direction,0)) temp += 100*direction;
+        }
+        if(cooldown == 4 && (status == SPECIAL || status == SPECIAL_AIR)) {
+            gunSound.play();
+            int temp = 0;
+            while(x+temp <= 800 && x+temp >= 0 && !opponent->hitAt(x+temp,y,30,direction*10,-7)) temp += 100*direction;
         }
         if(cooldown == 0 && (status == ATTACK || status == SPECIAL || status == DOWN)) status = READY, xVel = 0;
         if(cooldown == 0 && (status == ATTACK_AIR || status == SPECIAL_AIR || status == DOWN_AIR)) status = READY_AIR;
@@ -116,6 +121,17 @@ void FighterJade::input(Input command) {
         }
         break;
     case ATT_SPECIAL:
+        if(cooldown != 0 || energy < 50) break;
+        if(status == READY) {
+            status = SPECIAL;
+            cooldown = attackSpeed;
+            energy -= 50;
+        }
+        if(status == READY_AIR) {
+            status = SPECIAL_AIR;
+            cooldown = attackSpeed;
+            energy -= 50;
+        }
         break;
     }
 }
@@ -152,10 +168,25 @@ void FighterJade::drawSelf(sf::RenderWindow *window) {
         attackingSprite.update(sf::seconds(0.015f));
         window->draw(attackingSprite);
     }
+    else if(status == SPECIAL || status == SPECIAL_AIR) {
+        standingSprite.setColor((cooldown % 10 < 5) ? sf::Color::White : sf::Color(255,255,255,128));
+        standingSprite.setPosition(x,y);
+        standingSprite.setScale(direction,1);
+        window->draw(standingSprite);
+    }
     else if(status == KO || status == KO_AIR) {
         standingSprite.setRotation(90*-direction);
         standingSprite.setPosition(x,y);
         window->draw(standingSprite);
     }
+}
+
+bool FighterJade::hitAt(int hitX, int hitY, int hitPower, int forceX, int forceY) {
+    if(Fighter::hitAt(hitX,hitY,hitPower,forceX,forceY)) {
+        energy += hitPower;
+        if(energy >= maxEnergy) energy = maxEnergy;
+        return true;
+    }
+    else return false;
 }
 

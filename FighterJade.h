@@ -17,6 +17,7 @@ public:
     virtual int logic();
     virtual void input(Input);
     virtual void drawSelf(sf::RenderWindow*);
+    virtual bool hitAt(int,int,int,int,int);
 };
 
 #endif // FIGHTER_ROSE_H
